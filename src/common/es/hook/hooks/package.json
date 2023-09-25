@@ -1,0 +1,15 @@
+{
+  "name": "@mqi/hooks",
+  "version": "1.2.5",
+  "description": "",
+  "main": "es/index.js",
+  "module": "es/index.js",
+  "typings": "es/index.d.ts",
+  "scripts": {
+    "build": "father-build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "es"
+  ]
+}

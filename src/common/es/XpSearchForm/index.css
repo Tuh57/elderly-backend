@@ -1,0 +1,17 @@
+.xp-mqi-search-form .ant-form-item {
+  margin-bottom: 16px;
+}
+.xp-mqi-search-form .expandButton {
+  color: #0068FF;
+  cursor: pointer;
+}
+.xp-mqi-search-form .expandButton .downIcon {
+  margin-left: 4px;
+  transform: rotateZ(0deg);
+  transition: 0.2s;
+}
+.xp-mqi-search-form .expandButton .upIcon {
+  margin-left: 4px;
+  transform: rotateZ(180deg);
+  transition: 0.2s;
+}

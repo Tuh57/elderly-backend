@@ -1,0 +1,16 @@
+.xp-mqi-editable .xp-mqi-editable-col-action {
+  display: flex;
+}
+.xp-mqi-editable .xp-mqi-editable-add-row {
+  display: block;
+  width: 100%;
+  border: 1px dashed #d9d9d9;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 4px;
+  height: 32px;
+}
+.xp-mqi-editable .xp-mqi-editable-add-row:hover {
+  border-color: #0068FF;
+  color: #0068FF;
+}

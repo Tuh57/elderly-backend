@@ -1,0 +1,162 @@
+.xp-mqi-table {
+  padding-top: 16px;
+  background-color: #fff;
+
+  .ant-table-pagination {
+    bottom: 0;
+    z-index: 3;
+    margin: 0 !important;
+    padding: 16px 0;
+    background-color: #fff;
+  }
+
+  .ant-table-thead {
+    tr {
+      th {
+        height: 44px;
+        padding: 0 16px;
+        color: #333;
+        font-weight: 600;
+        font-size: 14px;
+        white-space: nowrap;
+        background-color: #f5f6f8;
+      }
+
+      .columns-left {
+        text-align: left;
+      }
+    }
+  }
+
+  .ant-table-tbody {
+    tr {
+      td {
+        height: 44px;
+        padding: 0 16px;
+        color: #333;
+        font-size: 14px;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .xp-mqi-table-select-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    padding: 12px;
+    background-color: #ddf1ff;
+    border: 1px solid @primary-color;
+  }
+
+  .xp-mqi-table-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+
+    .xp-mqi-table-toolbar-title {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .xp-mqi-table-toolbar-buttons {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .xp-mqi-table-DragHandle {
+    color: @primary-color;
+    cursor: grab;
+  }
+
+  /* 修改滚动条样式 */
+  div::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  div::-webkit-scrollbar-track {
+    background: rgba(220, 222, 224, 0.3); // 滚动槽背景色
+    border-radius: 2px;
+  }
+
+  div::-webkit-scrollbar-thumb {
+    height: 8px;
+    // 滚动滑块样式
+    background: #cacaca;
+    border-radius: 10px;
+  }
+
+  div::-webkit-scrollbar-thumb:hover {
+    background: #858585;
+  }
+}
+
+.xp-mqi-table-action-col {
+  > * {
+    margin-right: 10px;
+  }
+
+  > *:last-child {
+    margin-right: 0;
+  }
+}
+
+.xp-table-action-popover {
+  .ant-popover-inner-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 10px;
+
+    > * {
+      padding: 2px 0;
+    }
+  }
+}
+
+.xp-mqi-table-drag-row {
+  z-index: 1031;
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+
+  td {
+    flex: 1;
+    height: 100%;
+    padding: 0 16px;
+    line-height: 44px;
+    background-color: #fafafa;
+    border: 1px solid #f0f0f0;
+  }
+
+  .xp-mqi-table-DragHandle {
+    color: @primary-color;
+    cursor: grab;
+  }
+}
+
+.xp-mqi-table-setting-drag-row {
+  td:nth-child(1) {
+    width: 60px;
+  }
+
+  td:nth-child(2) {
+    flex: 1;
+  }
+
+  td:nth-child(3) {
+    width: 120px;
+  }
+}
+
+// 弹窗下sticky样式的修改
+.ant-modal-body {
+  .ant-table-sticky-holder {
+    top: -16px !important;
+  }
+}

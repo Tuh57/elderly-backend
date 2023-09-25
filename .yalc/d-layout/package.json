@@ -1,0 +1,39 @@
+{
+  "name": "d-layout",
+  "version": "1.5.3",
+  "description": "",
+  "module": "dist/esm/index",
+  "types": "dist/esm/index.d.ts",
+  "scripts": {
+    "dev": "father dev",
+    "build": "father build",
+    "build:deps": "father prebundle",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [],
+  "authors": [],
+  "license": "MIT",
+  "files": [
+    "dist",
+    "compiled"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@ant-design/icons": "latest",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@xp-security/watermark": "^0.9.1",
+    "alife-logger": "^1.8.30",
+    "antd": "^4.23.4",
+    "qs": "^6.11.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-draggable": "^4.4.3",
+    "umi": "^3.2.10",
+    "umi-plugin-keep-alive": "0.0.1-beta.33"
+  },
+  "yalcSig": "cd7b9a00c6e54255261444ce6d976941"
+}

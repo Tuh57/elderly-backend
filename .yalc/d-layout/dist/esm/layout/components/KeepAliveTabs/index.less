@@ -1,0 +1,128 @@
+@import "~antd/es/style/themes/default.less";
+
+@headerbgColor: #3a4258;
+@darkActiveColor: #00bed8;
+
+.xp-layout.layout-keep-alive-tabs {
+  .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab-active {
+    background-color: @primary-color;
+    color: #fff;
+  }
+
+  .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active {
+    background-color: @primary-color;
+    color: #fff;
+  }
+
+  .ant-tabs-nav {
+    margin: 0 !important;
+    padding-left: 10px;
+  }
+
+  .ant-tabs-nav .ant-tabs-tab-active {
+    background-color: @primary-color;
+  }
+
+  .ant-tabs-nav
+  > .ant-tabs-nav-wrap
+  > .ant-tabs-nav-list
+  > .ant-tabs-tab.ant-tabs-tab-active
+  > .ant-tabs-tab-btn {
+    color: #fff !important;
+  }
+
+  .ant-tabs-nav
+  > .ant-tabs-nav-wrap
+  > .ant-tabs-nav-list
+  > .ant-tabs-tab.ant-tabs-tab-active
+  > .ant-tabs-tab-remove {
+    color: #fff !important;
+  }
+
+  .ant-tabs-nav
+  > .ant-tabs-nav-wrap
+  > .ant-tabs-nav-list
+  > .ant-tabs-tab.ant-tabs-tab-with-remove {
+    font-size: 12px;
+    padding: 6px;
+  }
+
+  .ant-tabs-nav
+  > .ant-tabs-nav-wrap
+  > .ant-tabs-nav-list
+  > .ant-tabs-tab.ant-tabs-tab-with-remove
+  > .ant-tabs-tab-remove {
+    margin-right: 0;
+  }
+
+  .ant-tabs-nav-list {
+    .ant-tabs-tab {
+      .ant-tabs-tab-btn {
+        font-family: AlibabaSans-Regular;
+        font-size: 14px;
+        color: #626369;
+        letter-spacing: 0;
+        font-weight: 400;
+      }
+    }
+  }
+
+  .ant-tabs-nav {
+    background-color: @headerbgColor;
+
+    .ant-tabs-nav-wrap {
+      .ant-tabs-nav-list {
+        background-color: @headerbgColor;
+
+        > .ant-tabs-tab,
+        .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab {
+          background-color: @headerbgColor;
+          border: 0;
+          border-right: 1px solid #586381;
+          height: 54px;
+
+          .ant-tabs-tab-btn {
+            color: #a5b0c9;
+          }
+
+          .ant-tabs-tab-remove {
+            .anticon-close svg {
+              color: #848ca0;
+            }
+          }
+
+          &.ant-tabs-tab-active {
+            .ant-tabs-tab-btn {
+              color: @darkActiveColor;
+            }
+
+            .ant-tabs-tab-remove {
+              .anticon-close svg {
+                color: @darkActiveColor;
+              }
+            }
+
+            height: 55px;
+            border-bottom: 2px solid @darkActiveColor;
+          }
+        }
+      }
+    }
+
+    .ant-tabs-nav-operations {
+      .ant-tabs-nav-more {
+        .anticon {
+          svg {
+            color: @darkActiveColor;
+          }
+        }
+      }
+    }
+  }
+
+  .ant-layout-header.ant-pro-header-dark {
+    .ant-pro-global-header {
+      overflow: hidden;
+    }
+  }
+}

@@ -1,0 +1,8 @@
+.xp-mqi-page {
+  margin: 0 -16px;
+  background-color: var(--layout-content-bg-color, #eff0f3);
+}
+.xp-mqi-page .xp-mqi-page-content {
+  padding: 0 16px;
+  background-color: #fff;
+}

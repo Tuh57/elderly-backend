@@ -1,0 +1,9 @@
+{
+  "version": "v1",
+  "packages": {
+    "d-layout": {
+      "signature": "cd7b9a00c6e54255261444ce6d976941",
+      "link": true
+    }
+  }
+}

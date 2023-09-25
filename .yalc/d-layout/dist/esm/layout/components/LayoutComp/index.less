@@ -1,0 +1,321 @@
+.xp-layout {
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    height: 8px;
+    // 滚动滑块样式
+    background: #cacaca;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(220, 222, 224, 0.3); // 滚动槽背景色
+    border-radius: 2px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #858585;
+  }
+
+  .layout-header {
+    padding: 0;
+    background: #fff;
+
+    .logo {
+      float: left;
+      height: 100%;
+      margin: 0;
+      //width: 120px;
+      font-size: 16px;
+      background: rgba(255, 255, 255, 0.3);
+    }
+    .logo-img {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .layout-menu {
+    padding: 20px 8px 0 0;
+    background-color: #fff;
+
+    ::-webkit-scrollbar {
+      width: 4px;
+      height: 2px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.06);
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(50, 50, 51, 0.06274509803921569);
+      border-radius: 3px;
+    }
+
+    .layout-icon {
+      width: 20px;
+      height: 20px;
+      font-size: 20px;
+      line-height: 20px;
+    }
+
+    .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+      border-radius: 10px;
+    }
+
+    .ant-menu-inline .ant-menu-item::after {
+      border-right: none;
+    }
+  }
+
+  .ant-layout {
+    .mqi-layout-container {
+      width: 100%;
+      height: calc(100vh - 65px);
+      overflow-y: auto;
+
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: rgba(220, 222, 224, 0.3); // 滚动槽背景色
+        border-radius: 2px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        height: 8px;
+        // 滚动滑块样式
+        background: #cacaca;
+        border-radius: 10px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: #858585;
+      }
+
+      .layout-keep-alive-tabs .ant-tabs-nav {
+        .ant-tabs-nav-list > .ant-tabs-tab-with-remove {
+          background: no-repeat;
+          border: none;
+        }
+
+        .ant-tabs-nav-list > .ant-tabs-tab-active {
+          position: relative;
+          height: 40px;
+          padding-right: 35px;
+          padding-left: 40px;
+          background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAkCAYAAAAgh9I0AAAABmJLR0QA/wD/AP+gvaeTAAABs0lEQVRYhc2ZMUuWURiGr08zDSEHG0qIvrKQQAmEnAJHJxuCaGpya+gPCE45C0Gjo6N/wdBRaRDE7F/UHlwO7zsZ9Pmd9zznvPcPuM99cT/PgfO+A3oudRp4DawBr4Ah8AS4D9wDZqqF+5/UgbqhHqh/HKHaef+R+l69HBW8lxDqUP0+TvheQaib6u8UgF5AqFvq31SA6hBtA50AVAcVAdaAI2C2q1cVCHUBOAce5PCbyGGSoG9kAqgi9WPXHai6E+o88AuYz+lbepy2yQwABRdbHQJXwHRu75JNfCEAAAo1ob4AfgKTEf6lmtghCAAKNKEu0uzCnagzSjSxTSAABDehPqNpYSrynOgmdggGgMAm2hvpkuBRgtgmdikAAEFNqG+Akyj/m8p+iDoJ/KD5RlREEeP0mYIAkLkJdRk4pfkyV0zZINRZ4Ax4mcvztsoyTuoEsE8FAMgA0b4O94AP3eOkqdM4tTfRV+BTnjhpSoZo38sHwEa+OGlKGif1HXBBDwBgTAh1XT0GDoGHMZHG18hxUp8Cb4EtYCU8UYIG7fU4B9wFHgGPgefAKs1vpqV68W6na8UXE7o+3U/MAAAAAElFTkSuQmCC)
+              0,
+            url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAkCAMAAAAXWSIGAAAAw1BMVEUAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////BhC2fAAAAQHRSTlMAAQIDBwoREhcYHiEiJicwOz0/QUZLTVBTWl9jbm9wcouanaGipKepsre9v8HP0dTV19/m6uzu7/D2+Pn6+/z99eaxkwAAAAFiS0dEQP7ZXNgAAAClSURBVDjLldBFEsJQAATRkOAEgrsHd/eEvv+p2LD9FNP7V1M1FvfLYeX38lHr3/h2G5cjmgC2dVXAIq0KrhVVELRUwbupCoKSKjilVMFMFjRkcY6rgr4snq4q8GUR5lTxa8QgwqwqGMri5arCPGIUxruMgoksKMpi7aiCjiwenirYxVTB1FEFvq0KBrYqmCdUwbGmClgWVAGbdkYUwH7UrXrJuP0BGybb2/BI7wgAAAAASUVORK5CYII=)
+              100%;
+          background-repeat: no-repeat;
+          background-size: contain;
+          border: none;
+          transition: none;
+        }
+
+        .ant-tabs-nav-list > .ant-tabs-tab-active::before {
+          position: absolute;
+          bottom: 0;
+          left: 44px;
+          z-index: -1;
+          display: block;
+          width: calc(100% - 88px);
+          height: 40px;
+          background: #fff;
+          content: "";
+        }
+      }
+
+      .site-layout-background {
+        padding: 20px 10px 0;
+        background: #fff;
+      }
+
+      .mqi-bread {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        padding: 5px 0;
+        background: white;
+
+        .mqi-back-Button {
+          padding: 7px 0px 0px 20px;
+          color: #0068ff;
+          font-size: 15px;
+        }
+
+        .mqi-bread-title {
+          flex: 1;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+
+        .mqi-bread-custom {
+          flex: 1;
+        }
+
+        .mqi-bread-hover-btn {
+          cursor: pointer;
+          &:hover {
+            color: @primary-color;
+          }
+        }
+      }
+    }
+  }
+
+  .ant-layout-has-sider {
+    .toggle-span {
+      position: fixed;
+      top: 50%;
+      left: 218px;
+      width: 16px;
+      height: 57px;
+      margin-top: -30px;
+      background: rgb(255, 255, 255);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: left 0.3s ease-in-out;
+
+      &:hover {
+        box-shadow: 0 0 10px 2px #e8e8e9;
+      }
+    }
+
+    .toggle-expand {
+      &:before {
+        position: absolute;
+        top: 21px;
+        left: 1px;
+        display: block;
+        width: 14px;
+        height: 14px;
+        background-color: transparent;
+        background-image: url("../../../assets/arrow.png");
+        background-size: cover;
+        content: "";
+      }
+    }
+
+    .toggle-putAway {
+      left: 68px;
+
+      &:before {
+        position: absolute;
+        top: 21px;
+        left: 2px;
+        display: block;
+        width: 14px;
+        height: 14px;
+        background-color: transparent;
+        background-image: url("../../../assets/arrow.png");
+        background-size: cover;
+        transform: rotate(180deg);
+        content: "";
+      }
+    }
+  }
+
+  .iconfont {
+    font-size: 16px;
+    font-family: "iconfont" !important;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .icon {
+    width: 1em;
+    height: 1em;
+    overflow: hidden;
+    vertical-align: -0.15em;
+    fill: currentColor;
+  }
+
+  #antd-pro-components-keep-alive-tabs-index-keep-alive-tabs .ant-tabs-nav {
+    margin: 0;
+  }
+
+  .layout-head-skeleton {
+    display: flex;
+    align-items: center;
+    height: 64px;
+    background-color: white;
+
+    .layout-skeleton-icon {
+      display: flex;
+      justify-content: center;
+      width: 230px;
+      padding-right: 8px;
+    }
+
+    .layout-skeleton-menu {
+      width: calc(100% - 230px);
+
+      .layout-skeleton-switch {
+        display: flex;
+        justify-content: flex-end;
+        padding: 0px 30px 0px 0px;
+      }
+    }
+  }
+  .searchMenuDefault {
+    transition: width 0.5s, visibility 0.1s;
+  }
+
+  .searchMenuShow {
+    width: 200px;
+    visibility: visible;
+    .ant-select-selector {
+      visibility: visible;
+    }
+    .ant-select-arrow {
+      visibility: visible;
+    }
+  }
+  .searchMenuHidden {
+    width: 0;
+    visibility: hidden;
+    .ant-select-selector {
+      visibility: hidden;
+    }
+    .ant-select-arrow {
+      visibility: hidden;
+    }
+  }
+  .env-tip {
+    position: fixed;
+    top: 48px;
+    left: 50%;
+    z-index: 999;
+    padding: 4px 10px;
+    color: #fff;
+    font-size: 14px;
+    background-color: rgba(64, 64, 64, 0.8);
+    border-radius: 8px;
+    box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014,
+      0 9px 28px 8px #0000000d;
+    cursor: move;
+    // 禁止选中文本
+    -moz-user-select: none; /*火狐*/
+    -webkit-user-select: none; /*webkit浏览器*/
+    user-select: none;
+    .env-tip-btn {
+      margin-left: 8px;
+      cursor: pointer;
+    }
+  }
+}
+.hiddenMenus {
+  display: none;
+}

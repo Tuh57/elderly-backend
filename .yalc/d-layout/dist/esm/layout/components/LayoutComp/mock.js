@@ -1,0 +1,111 @@
+exports.routers = [{
+  url: "/i",
+  icon: "",
+  buttons: null,
+  resourceType: 2,
+  resourceName: "数据管理",
+  children: [{
+    url: "/b11",
+    icon: "",
+    buttons: null,
+    children: [{
+      url: "/a11",
+      icon: "",
+      buttons: null,
+      resourceType: 2,
+      resourceName: "机器人设备"
+    }],
+    resourceType: 2,
+    isHidden: false,
+    permission: "",
+    resourceName: "设备管理"
+  }, {
+    url: "/b22",
+    icon: "",
+    buttons: null,
+    children: [{
+      url: "/a22",
+      icon: "",
+      buttons: null,
+      resourceType: 2,
+      resourceName: "健康档案"
+    }, {
+      url: "/a23",
+      icon: "",
+      buttons: null,
+      resourceType: 2,
+      resourceName: "检测记录"
+    }],
+    resourceType: 2,
+    isHidden: false,
+    permission: "",
+    resourceName: "健康数据"
+  }, {
+    url: "/c22",
+    icon: "",
+    buttons: null,
+    children: [{
+      url: "/c23",
+      icon: "",
+      buttons: null,
+      resourceType: 2,
+      resourceName: "互动数据"
+    }],
+    resourceType: 2,
+    isHidden: false,
+    permission: "",
+    resourceName: "互动数据"
+  }, {
+    url: "/d22",
+    icon: "",
+    buttons: null,
+    children: [{
+      url: "/d23",
+      icon: "",
+      buttons: null,
+      resourceType: 2,
+      resourceName: "互动数据"
+    }],
+    resourceType: 2,
+    isHidden: false,
+    permission: "",
+    resourceName: "互动数据"
+  }]
+}, {
+  url: "/ii",
+  icon: "",
+  buttons: null,
+  resourceType: 2,
+  resourceName: "系统管理",
+  children: [{
+    url: "/b1",
+    icon: "",
+    buttons: null,
+    children: [{
+      url: "/a1",
+      icon: "",
+      buttons: null,
+      resourceType: 2,
+      resourceName: "账户列表"
+    }],
+    resourceType: 2,
+    isHidden: false,
+    permission: "",
+    resourceName: "账户管理"
+  }, {
+    url: "/b2",
+    icon: "",
+    buttons: null,
+    children: [{
+      url: "/a2",
+      icon: "",
+      buttons: null,
+      resourceType: 2,
+      resourceName: "老人端用户"
+    }],
+    resourceType: 2,
+    isHidden: false,
+    permission: "",
+    resourceName: "用户管理"
+  }]
+}];
