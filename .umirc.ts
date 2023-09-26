@@ -16,14 +16,15 @@ export default defineConfig({
     antd: true,
     baseNavigator: true
   },
-  headScripts: [{ src: '/sso-components.min.js' }, { src: '/BrowserPrint-3.1.250.min.js' }],
-  links: [{ href: '/sso-components.min.css', rel: 'stylesheet' }],
   proxy: {
     '/api': {
       // target: 'http://10.193.202.188:8080',
       target: 'http://8.134.151.47:8000',
       changeOrigin: true
     }
+  },
+  define: {
+    'process.env.URL': 'http://8.134.151.47:8000'
   },
   base: '/pc/',
   publicPath: '/pc/',

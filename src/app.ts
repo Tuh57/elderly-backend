@@ -40,7 +40,7 @@ export const request: RequestConfig = {
   middlewares: [],
   requestInterceptors: [authHeaderInterceptor],
   responseInterceptors: [responseInterceptor],
-  prefix: '/api'
+  prefix: process.env.URL + '/api'
 };
 
 export function render(oldRender) {
