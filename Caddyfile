@@ -1,0 +1,10 @@
+{
+	auto_https disable_redirects
+}
+
+:80 {
+    root * /srv
+    encode gzip
+    try_files {path} /pc/index.html
+    file_server
+}
