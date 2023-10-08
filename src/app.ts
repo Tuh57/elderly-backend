@@ -1,3 +1,4 @@
+import { message } from 'antd';
 import { RequestConfig, history } from 'umi';
 
 const authHeaderInterceptor = (url, options) => {
@@ -24,12 +25,18 @@ const errorHandler = (error) => {
   return response;
 };
 
-const responseInterceptor = (response) => {
+const responseInterceptor = async (response) => {
   const { status } = response;
-  if (status !== 200 || response.errcode === 2004 || response.errcode === 2005) {
+  if (response.errcode === 2004 || response.errcode === 2005) {
     console.log('responseInterceptor', status, response.errcode);
     window.localStorage.removeItem('token');
-    history.push('/login');
+    history.replace('/login');
+  }
+
+  if (status !== 200) {
+    const res = await response.clone().json();
+    console.log(res, 'errmsgerrmsgerrmsg');
+    message.error(res.errmsg);
   }
   return response;
 };

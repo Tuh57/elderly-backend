@@ -3,6 +3,7 @@ import { Button, DatePicker, Form, Input, Select, Space, message } from 'antd';
 import React, { useEffect, useState, useRef } from 'react';
 import KeepAlive, { useAliveController } from 'react-activation';
 import { request, history } from 'umi';
+import moment from 'moment';
 // import {
 //   getInboundRouteData,
 //   getLocationData,
@@ -38,23 +39,44 @@ const DeviceListColumns = ({ frozen, unFrozen, search }) => {
     },
     {
       title: '绑定设备ID',
-      dataIndex: 'device_no',
-      width: 100
+      dataIndex: 'sss',
+      width: 100,
+      render: (text, record) => {
+        if (record?.devices?.length) {
+          return record?.devices
+            .map((item) => {
+              return item.device_no;
+            })
+            .join(',');
+        }
+      }
     },
     {
       title: '设备名称',
-      dataIndex: 'nickname',
-      width: 100
+      dataIndex: 'b',
+      width: 100,
+      render: (text, record) => {
+        if (record?.devices?.length) {
+          return record?.devices
+            .map((item) => {
+              return item.nickname;
+            })
+            .join(',');
+        }
+      }
     },
     {
       title: '状态',
-      dataIndex: 'frozen',
+      dataIndex: 'frozen_text',
       width: 100
     },
     {
       title: '创建时间',
       dataIndex: 'create_at',
-      width: 200
+      width: 200,
+      render: (text) => {
+        return moment(text * 1000).format('YYYY-MM-DD HH:mm:ss');
+      }
     },
     {
       title: '操作',

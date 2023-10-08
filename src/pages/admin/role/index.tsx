@@ -1,5 +1,5 @@
 import { useXpTable, XpPage, XpSearchForm, XpTable, XpModal } from '@/common/es/index';
-import { Button, DatePicker, Form, Input, Select, Space, Modal, Tree } from 'antd';
+import { Button, DatePicker, Form, Input, Select, Space, Modal, Tree, message } from 'antd';
 import React, { useEffect, useState, useRef } from 'react';
 import KeepAlive, { useAliveController } from 'react-activation';
 import { request, history } from 'umi';
@@ -80,7 +80,7 @@ const DeviceListColumns = ({ setAdminModalOpen, detailData, deleteRoleReq, searc
 };
 
 const AdminModal = (props) => {
-  const { adminModalOpen, setAdminModalOpen, detailData = {} } = props;
+  const { adminModalOpen, setAdminModalOpen, detailData = {}, search } = props;
   const [form] = Form.useForm();
   const treeRef = useRef();
   const [treeData, setTreeData] = useState([]);
@@ -219,12 +219,25 @@ const AdminModal = (props) => {
       selectedRowKeys: selectedRowKeys,
       permissions: newTree
     };
+    let data;
 
     if (detailData.current.id) {
-      await adminRoleUpdateReq(formData);
+      data = await adminRoleUpdateReq(formData);
     } else {
-      const data = await adminRoleCreateReq(formData);
+      data = await adminRoleCreateReq(formData);
     }
+
+    console.log(data, 'data data');
+
+    if (data.errmsg) {
+      message.error(data.errmsg);
+      return;
+    }
+
+    setAdminModalOpen(false);
+    message.success('操作成功');
+    search.submit({ page: 1 });
+    detailData.current = {};
 
     setAdminModalOpen(false);
     detailData.current = {};
@@ -238,9 +251,16 @@ const AdminModal = (props) => {
   };
 
   return (
-    <Modal maskClosable={false} open={adminModalOpen} width={800} title="新增用户" onOk={onOk} onCancel={onCancel}>
+    <Modal
+      maskClosable={false}
+      open={adminModalOpen}
+      width={800}
+      title={detailData.current.id ? '编辑角色' : '新增角色'}
+      onOk={onOk}
+      onCancel={onCancel}
+    >
       <Form labelCol={{ span: 6 }} wrapperCol={{ span: 10 }} form={form}>
-        <Form.Item label="角色名称" name="title" rules={[{ required: true, message: 'Please input your username!' }]}>
+        <Form.Item label="角色名称" name="title" rules={[{ required: true, message: '请输入角色名称' }]}>
           <Input />
         </Form.Item>
 
@@ -309,7 +329,7 @@ const CubeStoreDownTask = () => {
         }}
         onReset={search.reset}
       >
-        <Form.Item label="关键词" name="nickname">
+        <Form.Item label="关键词" name="title">
           <Input placeholder="请输入关键词" allowClear />
         </Form.Item>
 
@@ -339,7 +359,12 @@ const CubeStoreDownTask = () => {
         }
       />
       {adminModalOpen && (
-        <AdminModal adminModalOpen={adminModalOpen} setAdminModalOpen={setAdminModalOpen} detailData={detailData} />
+        <AdminModal
+          adminModalOpen={adminModalOpen}
+          setAdminModalOpen={setAdminModalOpen}
+          search={search}
+          detailData={detailData}
+        />
       )}
     </XpPage>
   );

@@ -1,4 +1,5 @@
 import { useXpTable, XpPage, XpSearchForm, XpTable, XpModal } from '@/common/es/index';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Button, DatePicker, Form, Input, Select, Space, Modal, message } from 'antd';
 import React, { useEffect, useState, useRef } from 'react';
 import KeepAlive, { useAliveController } from 'react-activation';
@@ -31,6 +32,7 @@ const valueToLabel = (present: any, label = 'valueName', value = 'valueCode') =>
 };
 
 const DeviceListColumns = ({ detailData, setAdminModalOpen, disableUser, enableUser, search }) => {
+  const { confirm } = Modal;
   return [
     {
       title: '序号',
@@ -46,8 +48,8 @@ const DeviceListColumns = ({ detailData, setAdminModalOpen, disableUser, enableU
       width: 100
     },
     {
-      title: '登陆账号',
-      dataIndex: 'nickname',
+      title: '登录账号',
+      dataIndex: 'username',
       width: 100
     },
     {
@@ -62,17 +64,17 @@ const DeviceListColumns = ({ detailData, setAdminModalOpen, disableUser, enableU
     },
     {
       title: '用户名',
-      dataIndex: 'username',
+      dataIndex: 'nickname',
       width: 100
     },
     {
       title: '角色',
-      dataIndex: '',
+      dataIndex: ['role', 'title'],
       width: 100
     },
     {
       title: '创建人',
-      dataIndex: 'creator',
+      dataIndex: ['creator', 'nickname'],
       width: 100
     },
     {
@@ -125,11 +127,24 @@ const DeviceListColumns = ({ detailData, setAdminModalOpen, disableUser, enableU
             <div>
               <a
                 onClick={async () => {
-                  // history.push('/device/detail?id=' + record.id);
-                  record.enable ? disableUser(record.id) : enableUser(record.id);
-                  message.success('操作成功');
-                  // search.submit({ page: 1 });
-                  search.submit();
+                  confirm({
+                    title: '你确认要' + (record.enable ? '禁用' : '启用') + '此数据吗？',
+                    icon: <ExclamationCircleOutlined />,
+                    content: '',
+                    onOk() {
+                      console.log('OK');
+                      // history.push('/device/detail?id=' + record.id);
+                      record.enable ? disableUser(record.id) : enableUser(record.id);
+                      message.success('操作成功');
+                      // search.submit({ page: 1 });
+                      setTimeout(() => {
+                        search.submit({ page: 1 });
+                      }, 100);
+                    },
+                    onCancel() {
+                      console.log('Cancel');
+                    }
+                  });
                 }}
               >
                 {record.enable ? '禁用' : '启用'}
@@ -189,11 +204,17 @@ const AdminModal = (props) => {
     // console.log(treeData);
     const formData = await form.validateFields();
     console.log(formData);
+    let data;
 
     if (detailData.current.id) {
-      await adminUserUpdateReq(formData);
+      data = await adminUserUpdateReq(formData);
     } else {
-      const data = await adminUserCreateReq(formData);
+      data = await adminUserCreateReq(formData);
+    }
+
+    if (data.errmsg) {
+      message.error(data.errmsg);
+      return;
     }
 
     setAdminModalOpen(false);
@@ -212,7 +233,7 @@ const AdminModal = (props) => {
   // 判断手机号
   const checkPhone = (rule, value, callback) => {
     if (!value) {
-      return Promise.reject('请输入手机号');
+      return Promise.resolve();
     } else if (!/^1[3456789]\d{9}$/.test(value)) {
       return Promise.reject('请输入正确的手机号');
     } else {
@@ -221,9 +242,16 @@ const AdminModal = (props) => {
   };
 
   return (
-    <Modal maskClosable={false} open={adminModalOpen} width={600} title="新增用户" onOk={onOk} onCancel={onCancel}>
+    <Modal
+      maskClosable={false}
+      open={adminModalOpen}
+      width={600}
+      title={detailData.current.id ? '编辑用户' : '新增用户'}
+      onOk={onOk}
+      onCancel={onCancel}
+    >
       <Form labelCol={{ span: 6 }} wrapperCol={{ span: 12 }} form={form} onValuesChange={onValuesChange}>
-        <Form.Item label="登陆账号" name="nickname" rules={[{ required: true, message: '请输入登录账号' }]}>
+        <Form.Item label="登陆账号" name="username" rules={[{ required: true, message: '请输入登录账号' }]}>
           <Input />
         </Form.Item>
 
@@ -234,7 +262,7 @@ const AdminModal = (props) => {
         <Form.Item
           label="手机号"
           name="phone"
-          rules={[{ required: true, message: '请输入手机号', validator: checkPhone }]}
+          rules={[{ required: false, message: '请输入手机号', validator: checkPhone }]}
         >
           <Input />
         </Form.Item>
@@ -254,11 +282,11 @@ const AdminModal = (props) => {
           <Input />
         </Form.Item>
 
-        <Form.Item label="用户名称" name="username" rules={[{ required: true, message: '请输入用户名称' }]}>
+        <Form.Item label="用户名称" name="nickname" rules={[{ required: true, message: '请输入用户名称' }]}>
           <Input />
         </Form.Item>
 
-        <Form.Item label="是否启用" name="enable" rules={[{ required: true, message: '是否启用' }]}>
+        <Form.Item label="是否启用" name="enable" rules={[{ required: true, message: '请选择是否启用' }]}>
           <Select
             options={[
               { label: '是', value: true },
@@ -353,11 +381,11 @@ const CubeStoreDownTask = () => {
         onReset={search.reset}
       >
         <Form.Item label="手机号码" name="phone">
-          <Input placeholder="请输入设备ID" allowClear />
+          <Input placeholder="请输入手机号码" allowClear />
         </Form.Item>
 
         <Form.Item label="昵称" name="nickname">
-          <Input placeholder="请输入设备名称" allowClear />
+          <Input placeholder="请输入用户名" allowClear />
         </Form.Item>
 
         <Form.Item label="状态" name="enable">
