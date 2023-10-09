@@ -106,6 +106,11 @@ const CubeStoreDownTask = (props) => {
       title: '昵称',
       dataIndex: 'nickname',
       width: 300
+    },
+    {
+      title: '备注',
+      dataIndex: 'remark',
+      width: 300
     }
   ];
 
@@ -200,4 +205,4 @@ const keepliveView = () => (
     <CubeStoreDownTask />
   </KeepAlive>
 );
-export default keepliveView;
+export default CubeStoreDownTask;

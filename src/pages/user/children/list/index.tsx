@@ -1,5 +1,5 @@
 import { useXpTable, XpPage, XpSearchForm, XpTable, XpModal } from '@/common/es/index';
-import { Button, DatePicker, Form, Input, message, Select, Space } from 'antd';
+import { Button, DatePicker, Form, Input, message, Select, Space, Modal } from 'antd';
 import React, { useEffect, useState, useRef } from 'react';
 import KeepAlive, { useAliveController } from 'react-activation';
 import { request, history } from 'umi';
@@ -13,6 +13,8 @@ import moment from 'moment';
 // } from '@/api/inventoryManagementApi';
 
 const DeviceListColumns = ({ frozenChilden, unFrozenChilden, search }) => {
+  const { confirm } = Modal;
+
   return [
     {
       title: '编号',
@@ -39,7 +41,7 @@ const DeviceListColumns = ({ frozenChilden, unFrozenChilden, search }) => {
     },
     {
       title: '状态',
-      dataIndex: 'status',
+      dataIndex: 'frozen_text',
       width: 100
     },
     {
@@ -71,9 +73,23 @@ const DeviceListColumns = ({ frozenChilden, unFrozenChilden, search }) => {
             <div>
               <a
                 onClick={async () => {
-                  !record.frozen ? await frozenChilden(record.id) : await unFrozenChilden(record.id);
-                  message.success('操作成功');
-                  search.submit();
+                  confirm({
+                    title: '你确认要' + (record.frozen ? '解冻' : '冻结') + '此数据吗？',
+                    content: '',
+                    onOk() {
+                      console.log('OK');
+                      !record.frozen ? frozenChilden(record.id) : unFrozenChilden(record.id);
+                      message.success('操作成功');
+                      // search.submit();
+                      // search.submit({ page: 1 });
+                      setTimeout(() => {
+                        search.submit({ page: 1 });
+                      }, 100);
+                    },
+                    onCancel() {
+                      console.log('Cancel');
+                    }
+                  });
                 }}
               >
                 {record.frozen ? '解冻' : '冻结'}
@@ -110,6 +126,11 @@ const CubeStoreDownTask = () => {
   };
 
   const getListReq = async (params) => {
+    if (params.param?.createAt) {
+      params.param.create_start_time = params.param.createAt[0].unix();
+      params.param.create_end_time = params.param.createAt[1].unix();
+    }
+    console.log(params, '----');
     return request('/management/user/list', {
       method: 'POST',
       data: params
@@ -143,16 +164,16 @@ const CubeStoreDownTask = () => {
           <Input placeholder="请输入" allowClear />
         </Form.Item>
 
-        <Form.Item label="昵称" name="nickName">
+        <Form.Item label="昵称" name="nickname">
           <Input placeholder="请输入" allowClear />
         </Form.Item>
 
-        <Form.Item label="状态" name="status">
+        <Form.Item label="状态" name="frozen">
           <Select
             options={[
               { label: '全部', value: '' },
-              { label: '未激活', value: 0 },
-              { label: '已激活', value: 1 }
+              { label: '正常', value: false },
+              { label: '已冻结', value: true }
             ]}
             allowClear
             placeholder="请选择"

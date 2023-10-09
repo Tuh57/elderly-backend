@@ -1,5 +1,5 @@
 import { useXpTable, XpPage, XpSearchForm, XpTable, XpModal } from '@/common/es/index';
-import { Button, DatePicker, Form, Input, Select, Space, message } from 'antd';
+import { Button, DatePicker, Form, Input, Select, Space, message, Modal } from 'antd';
 import React, { useEffect, useState, useRef } from 'react';
 import KeepAlive, { useAliveController } from 'react-activation';
 import { request, history } from 'umi';
@@ -13,6 +13,7 @@ import moment from 'moment';
 // } from '@/api/inventoryManagementApi';
 
 const DeviceListColumns = ({ frozen, unFrozen, search }) => {
+  const { confirm } = Modal;
   return [
     {
       title: '编号',
@@ -95,21 +96,34 @@ const DeviceListColumns = ({ frozen, unFrozen, search }) => {
                 查看
               </a>
             </div>
-            {!record?.frozen && (
-              <div>
-                <a
-                  onClick={async () => {
-                    !record.frozen ? await frozen(record.id) : await unFrozen(record.id);
-                    message.success('操作成功');
-                    search.submit();
-                  }}
-                >
-                  {record.frozen ? '解冻' : '冻结'}
-                </a>
-              </div>
-            )}
 
-            {record?.frozen && (
+            <div>
+              <a
+                onClick={async () => {
+                  confirm({
+                    title: '你确认要' + (record.frozen ? '解冻' : '冻结') + '此数据吗？',
+                    content: '',
+                    onOk() {
+                      console.log('OK');
+                      !record.frozen ? frozen(record.id) : unFrozen(record.id);
+                      message.success('操作成功');
+                      // search.submit();
+                      // search.submit({ page: 1 });
+                      setTimeout(() => {
+                        search.submit({ page: 1 });
+                      }, 100);
+                    },
+                    onCancel() {
+                      console.log('Cancel');
+                    }
+                  });
+                }}
+              >
+                {record.frozen ? '解冻' : '冻结'}
+              </a>
+            </div>
+
+            {/* {record?.frozen && (
               <div>
                 <a
                   onClick={async () => {
@@ -124,7 +138,7 @@ const DeviceListColumns = ({ frozen, unFrozen, search }) => {
                   解冻
                 </a>
               </div>
-            )}
+            )} */}
           </Space>
         );
       }
@@ -136,6 +150,20 @@ const CubeStoreDownTask = () => {
   const [form] = Form.useForm();
 
   const detailData = useRef();
+
+  const exportDeviceListReq = async ({ pagination, param = {} }) => {
+    // console.log(params, 'params');
+
+    const file = await request('/management/device/export', {
+      method: 'POST',
+      data: {
+        param,
+        page: pagination.current,
+        size: pagination.pageSize
+      }
+    });
+    exportData(file, '老人设备列表');
+  };
 
   const frozen = (id) => {
     return request('/management/family/frozen', {
@@ -156,6 +184,11 @@ const CubeStoreDownTask = () => {
   };
 
   const getListReq = async (params) => {
+    if (params.param?.createAt) {
+      params.param.create_start_time = params.param.createAt[0].valueOf();
+      params.param.create_end_time = params.param.createAt[1].valueOf();
+    }
+
     return request('/management/family/list', {
       method: 'POST',
       data: params
@@ -186,30 +219,30 @@ const CubeStoreDownTask = () => {
         onReset={search.reset}
       >
         <Form.Item label="手机号" name="phone">
-          <Input placeholder="请输入设备ID" allowClear />
+          <Input placeholder="请输入手机号" allowClear />
         </Form.Item>
-
+        {/* 
         <Form.Item label="设备ID" name="device_no">
           <Input placeholder="请输入设备ID" allowClear />
+        </Form.Item> */}
+
+        <Form.Item label="昵称" name="nickname">
+          <Input placeholder="请输入昵称" allowClear />
         </Form.Item>
 
-        <Form.Item label="设备名称" name="nickname">
-          <Input placeholder="请输入设备名称" allowClear />
-        </Form.Item>
-
-        <Form.Item label="状态" name="status">
+        <Form.Item label="状态" name="frozen">
           <Select
             options={[
               { label: '全部', value: '' },
-              { label: '未激活', value: 0 },
-              { label: '已激活', value: 1 }
+              { label: '正常', value: false },
+              { label: '已冻结', value: true }
             ]}
             allowClear
             placeholder="请选择"
           />
         </Form.Item>
 
-        <Form.Item label="创建时间" name="createTime">
+        <Form.Item label="创建时间" name="createAt">
           <DatePicker.RangePicker allowClear showTime style={{ width: '100%' }} />
         </Form.Item>
 
@@ -231,8 +264,8 @@ const CubeStoreDownTask = () => {
         toolbarButton={
           <Space>
             {/* <Button type="primary">导入模版</Button>
-            <Button key="button">批量导出</Button>
-            <Button key="button">导出</Button> */}
+            <Button key="button">批量导出</Button> */}
+            <Button key="button">导出</Button>
           </Space>
         }
       />
