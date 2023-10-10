@@ -29,7 +29,7 @@ const HealthListColumns = () => {
     },
     {
       title: '家庭账号',
-      dataIndex: ['family', 'family_no'],
+      dataIndex: ['family', 'phone'],
       width: 100
     },
     {
@@ -39,12 +39,12 @@ const HealthListColumns = () => {
     },
     {
       title: '创建人',
-      dataIndex: 'creator',
+      dataIndex: ['creator', 'nickname'],
       width: 200
     },
     {
       title: '创建人账号',
-      dataIndex: 'creator_user_id',
+      dataIndex: ['creator', 'username'],
       width: 100
     },
     {

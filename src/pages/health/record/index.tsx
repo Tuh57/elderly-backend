@@ -28,6 +28,14 @@ const CubeStoreDownTask = (props) => {
   const [typeIndex, setTypeIndex] = useState(0);
   const [recordList, setRecordList] = useState([]);
 
+  // const [pagination, setPagination] = useState({
+  //   page: 1,
+  //   size: 50
+  // });
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [total, setTotal] = useState(0);
+
   const timeTypeData = ['day', 'week', 'month', 'year'];
 
   const recordColumns = [
@@ -80,7 +88,7 @@ const CubeStoreDownTask = (props) => {
     // setEchartShow(true);
   };
 
-  const getRecordListReq = async () => {
+  const getRecordListReq = async (currentPage) => {
     if (queryTime[0] && queryTime[1]) {
       let metric_key;
       if (typeIndex === 5) {
@@ -88,6 +96,8 @@ const CubeStoreDownTask = (props) => {
       } else {
         metric_key = recordColumns[typeIndex].value;
       }
+
+      console.log(currentPage, 'currentPagecurrentPage');
 
       const res = await request('/management/health/record/list', {
         method: 'POST',
@@ -98,10 +108,11 @@ const CubeStoreDownTask = (props) => {
             end_date_time: queryTime[1],
             metric_key
           },
-          page: 1,
-          size: 100
+          page: currentPage || 1,
+          size: 50
         }
       });
+      setTotal(res.total || 0);
       setRecordList(res.records || []);
       console.log(res, 'res---');
     }
@@ -508,7 +519,21 @@ const CubeStoreDownTask = (props) => {
             {echartShow && <ReactECharts option={option} notMerge={true} lazyUpdate={true} />}
           </Card>
           <Card title={typeText[typeIndex] + '监测记录'} bordered={true}>
-            <XpTable columns={columns1} toolbarShowSetting={false} dataSource={recordList} pagination={false} />
+            <XpTable
+              columns={columns1}
+              toolbarShowSetting={false}
+              dataSource={recordList}
+              pagination={{
+                total,
+                current: currentPage,
+                defaultPageSize: 50
+              }}
+              onChange={(pagination) => {
+                console.log(pagination, 'pagination');
+                setCurrentPage(pagination.current);
+                getRecordListReq(pagination.current);
+              }}
+            />
           </Card>
         </Space>
       </div>

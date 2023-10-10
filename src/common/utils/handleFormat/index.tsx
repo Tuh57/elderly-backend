@@ -19,8 +19,8 @@ const inObject = <T extends any>(data: T) => Object.prototype.toString.call(data
 const dateRange: dateRangeType = (data = {}, times = {}) => {
   for (const key in times) {
     if (data[key] && data[key].length === 2 && times[key].length === 2) {
-      data[times[key][0]] = data[key][0] && moment(data[key][0]).valueOf();
-      data[times[key][1]] = data[key][1] && moment(data[key][1]).valueOf();
+      data[times[key][0]] = data[key][0] && moment(data[key][0]).unix();
+      data[times[key][1]] = data[key][1] && moment(data[key][1]).unix();
       delete data[key];
     }
   }

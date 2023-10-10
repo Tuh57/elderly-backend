@@ -54,7 +54,7 @@ const DeviceListColumns = () => {
     },
     {
       title: '账户ID',
-      dataIndex: 'family.user_id',
+      dataIndex: ['family', 'family_no'],
       width: 100
     },
     {
@@ -71,21 +71,24 @@ const DeviceListColumns = () => {
       width: 100
     },
     {
-      title: '固件版本',
+      title: '硬件版本',
       dataIndex: 'firmware_version',
       width: 100
     },
     {
       title: '激活状态',
-      dataIndex: 'status',
-      width: 100
+      dataIndex: 'active',
+      width: 100,
+      render: (text, record) => {
+        return record.active ? '已激活' : '未激活';
+      }
     },
     {
       title: '激活日期',
       dataIndex: 'active_at',
       width: 200,
       render: (text) => {
-        return moment(text * 1000).format('YYYY-MM-DD HH:mm:ss');
+        return text ? moment(Number(text) * 1000).format('YYYY-MM-DD HH:mm:ss') : '';
       }
     },
     {
@@ -185,17 +188,17 @@ const CubeStoreDownTask = () => {
           <Input placeholder="请输入设备名称" allowClear />
         </Form.Item>
 
-        {/* <Form.Item label="状态" name="status">
+        <Form.Item label="状态" name="active">
           <Select
             options={[
               { label: '全部', value: '' },
-              { label: '未激活', value: 0 },
-              { label: '已激活', value: 1 }
+              { label: '未激活', value: false },
+              { label: '已激活', value: true }
             ]}
             allowClear
             placeholder="请选择"
           />
-        </Form.Item> */}
+        </Form.Item>
 
         <Form.Item label="出厂日期" name="createTime">
           <DatePicker.RangePicker allowClear style={{ width: '100%' }} />

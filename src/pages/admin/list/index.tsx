@@ -297,7 +297,7 @@ const AdminModal = (props) => {
           />
         </Form.Item>
 
-        <Form.Item label="角色" name="role_id" rules={[{ required: true, message: '是否启用' }]}>
+        <Form.Item label="角色" name="role_id" rules={[{ required: true, message: '请选择角色' }]}>
           <Select options={valueToLabel(roles, 'title', 'id')} />
         </Form.Item>
       </Form>

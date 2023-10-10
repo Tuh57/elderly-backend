@@ -90,12 +90,12 @@ const CubeStoreDownTask = (props) => {
               <Descriptions.Item label="账户ID">{device.family?.nickname}</Descriptions.Item>
               <Descriptions.Item label="软件版本">{device.software_version}</Descriptions.Item>
               <Descriptions.Item label="固件版本">{device.firmware_version}</Descriptions.Item>
-              <Descriptions.Item label="激活状态">{device.status}</Descriptions.Item>
+              <Descriptions.Item label="激活状态">{device.active ? '已激活' : '未激活'}</Descriptions.Item>
               <Descriptions.Item label="出厂日期">
-                {moment(device.create_at * 1000).format('YYYY-MM-DD HH:mm:ss')}
+                {device.create_at && moment(device.create_at * 1000).format('YYYY-MM-DD HH:mm:ss')}
               </Descriptions.Item>
               <Descriptions.Item label="激活日期">
-                {moment(device.active_at * 1000).format('YYYY-MM-DD HH:mm:ss')}
+                {device.active_at && moment(device.active_at * 1000).format('YYYY-MM-DD HH:mm:ss')}
               </Descriptions.Item>
             </Descriptions>
           </Card>

@@ -71,7 +71,7 @@ const CubeStoreDownTask = (props) => {
               <Descriptions.Item label="体重">{healths.weight}</Descriptions.Item>
               <Descriptions.Item label="语言偏好">{healths.language === 'en' ? '英语' : '普通话'}</Descriptions.Item>
               <Descriptions.Item label="档案编号">{healths.file_no}</Descriptions.Item>
-              <Descriptions.Item label="家庭账号">{healths?.family?.family_no}</Descriptions.Item>
+              <Descriptions.Item label="家庭账号">{healths?.family?.phone}</Descriptions.Item>
             </Descriptions>
           </Card>
           <Card title="紧急联系人" bordered={true}>
