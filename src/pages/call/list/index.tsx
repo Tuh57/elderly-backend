@@ -3,6 +3,7 @@ import { Button, DatePicker, Form, Input, Select, Space } from 'antd';
 import React, { useEffect, useState, useRef } from 'react';
 import KeepAlive, { useAliveController } from 'react-activation';
 import { request, history } from 'umi';
+import moment from 'moment';
 // import {
 //   getInboundRouteData,
 //   getLocationData,
@@ -44,17 +45,24 @@ const DeviceListColumns = () => {
     {
       title: '通话形式',
       dataIndex: 'type',
-      width: 100
+      width: 100,
+      render: (text) => (text === 'video' ? '视频通话' : '语音通话')
     },
     {
       title: '通话开始时间',
       dataIndex: 'start_time',
-      width: 100
+      width: 100,
+      render: (text) => {
+        return moment(text * 1000).format('YYYY-MM-DD HH:mm:ss');
+      }
     },
     {
       title: '通话结束时间',
       dataIndex: 'end_time',
-      width: 100
+      width: 100,
+      render: (text) => {
+        return moment(text * 1000).format('YYYY-MM-DD HH:mm:ss');
+      }
     },
     {
       title: '通话时长（分钟）',
@@ -133,12 +141,12 @@ const CubeStoreDownTask = () => {
           <Input placeholder="请输入" allowClear />
         </Form.Item>
 
-        <Form.Item label="通话形式" name="status">
+        <Form.Item label="通话形式" name="type">
           <Select
             options={[
               { label: '全部', value: '' },
-              { label: '未激活', value: 0 },
-              { label: '已激活', value: 1 }
+              { label: '视频通话', value: 'video' },
+              { label: '语音通话', value: 'audio' }
             ]}
             allowClear
             placeholder="请选择"

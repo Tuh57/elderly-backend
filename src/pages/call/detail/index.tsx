@@ -3,6 +3,7 @@ import { Button, DatePicker, Form, Input, Select, Space, Card, Descriptions } fr
 import React, { useEffect, useState, useRef } from 'react';
 import KeepAlive, { useAliveController } from 'react-activation';
 import { request, useHistory } from 'umi';
+import moment from 'moment';
 
 const CubeStoreDownTask = (props) => {
   const history = useHistory();
@@ -39,9 +40,15 @@ const CubeStoreDownTask = (props) => {
               <Descriptions.Item label="子女手机号">{record.user?.phone}</Descriptions.Item>
               <Descriptions.Item label="设备ID">{record.device?.device_no}</Descriptions.Item>
               <Descriptions.Item label="设备名称">{record.device?.nickname}</Descriptions.Item>
-              <Descriptions.Item label="通话形式">{record.type}</Descriptions.Item>
-              <Descriptions.Item label="通话开始时间">{record.start_time}</Descriptions.Item>
-              <Descriptions.Item label="通话结束时间">{record.end_time}</Descriptions.Item>
+              <Descriptions.Item label="通话形式">
+                {record.type === 'video' ? '视频通话' : '语音通话'}
+              </Descriptions.Item>
+              <Descriptions.Item label="通话开始时间">
+                {moment(record.start_time * 1000).format('YYYY-MM-DD HH:mm:ss')}
+              </Descriptions.Item>
+              <Descriptions.Item label="通话结束时间">
+                {moment(record.end_time * 1000).format('YYYY-MM-DD HH:mm:ss')}
+              </Descriptions.Item>
               <Descriptions.Item label="通话时长">
                 {((record.end_time - record.start_time) / 60).toFixed(2)}
               </Descriptions.Item>
@@ -57,4 +64,4 @@ const keepliveView = () => (
     <CubeStoreDownTask />
   </KeepAlive>
 );
-export default keepliveView;
+export default CubeStoreDownTask;

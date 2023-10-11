@@ -28,7 +28,7 @@ const DeviceListColumns = () => {
     },
     {
       title: '警报类型',
-      dataIndex: 'type',
+      dataIndex: 'type_text',
       width: 100
     },
     {
@@ -48,12 +48,12 @@ const DeviceListColumns = () => {
     },
     {
       title: '响应状态',
-      dataIndex: 'status',
+      dataIndex: 'status_text',
       width: 100
     },
     {
       title: '是否误报',
-      dataIndex: 'is_error_alarm',
+      dataIndex: 'is_error_alarm_text',
       width: 100
     }
   ];

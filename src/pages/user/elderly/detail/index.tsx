@@ -139,7 +139,7 @@ const CubeStoreDownTask = (props) => {
     },
     {
       title: '身体状况',
-      dataIndex: 'self_care',
+      dataIndex: 'self_care_text',
       width: 200
     },
     {

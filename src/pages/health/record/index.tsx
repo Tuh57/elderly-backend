@@ -28,6 +28,8 @@ const CubeStoreDownTask = (props) => {
   const [typeIndex, setTypeIndex] = useState(0);
   const [recordList, setRecordList] = useState([]);
 
+  const [summary, setSummary] = useState({});
+
   // const [pagination, setPagination] = useState({
   //   page: 1,
   //   size: 50
@@ -84,6 +86,7 @@ const CubeStoreDownTask = (props) => {
     if (queryTime[0] && queryTime[1]) {
       const res = await getReq1();
       formatData(res.records || []);
+      setSummary(res.summary2 || {});
     }
     // setEchartShow(true);
   };
@@ -123,6 +126,7 @@ const CubeStoreDownTask = (props) => {
     setEchartsData([[], [], [], [], [], [], []]);
     setEchartsData2([[], [], [], [], [], [], []]);
     setQueryTime([]);
+    setSummary({});
     // setDateShow(true);
     // setEchartsRowData([[], [], [], []]);
   };
@@ -376,10 +380,33 @@ const CubeStoreDownTask = (props) => {
     }
   ];
 
+  const subtextFnc = () => {
+    if (typeIndex === 2) {
+      return (
+        '收缩压最小值：' +
+        (summary['diastolic_pressure']?.min || '') +
+        '收缩压最大值：' +
+        (summary['diastolic_pressure']?.max || '') +
+        '舒张压最小值：' +
+        (summary['systolic_pressure']?.min || '') +
+        '舒张压最大值：' +
+        (summary['systolic_pressure']?.max || '')
+      );
+    } else {
+      return (
+        '最小值：' +
+        (summary[recordColumns[typeIndex]?.value]?.min || '') +
+        ' 最大值：' +
+        (summary[recordColumns[typeIndex]?.value]?.max || '')
+      );
+    }
+  };
+
   let option = {
     title: {
-      text: typeText[typeIndex] + '监测图'
-      // subtext: '间隔：1小时'
+      text: typeText[typeIndex] + '监测图',
+
+      subtext: subtextFnc()
     },
     grid: {
       left: '3%',
