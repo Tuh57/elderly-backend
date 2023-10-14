@@ -251,7 +251,11 @@ const AdminModal = (props) => {
       onCancel={onCancel}
     >
       <Form labelCol={{ span: 6 }} wrapperCol={{ span: 12 }} form={form} onValuesChange={onValuesChange}>
-        <Form.Item label="登陆账号" name="username" rules={[{ required: true, message: '请输入登录账号' }]}>
+        <Form.Item
+          label="登陆账号"
+          name="username"
+          rules={[{ required: true, message: '请输入登录账号 长度在3-15', min: 3, max: 15 }]}
+        >
           <Input />
         </Form.Item>
 

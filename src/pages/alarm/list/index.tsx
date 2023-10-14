@@ -4,6 +4,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import KeepAlive, { useAliveController } from 'react-activation';
 import { request, history } from 'umi';
 import moment from 'moment';
+import { exportReq } from '@/common/utils';
 // import {
 //   getInboundRouteData,
 //   getLocationData,

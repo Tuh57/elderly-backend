@@ -4,6 +4,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import KeepAlive, { useAliveController } from 'react-activation';
 import { request, history } from 'umi';
 import moment from 'moment';
+import { exportReq } from '@/common/utils';
 // import {
 //   getInboundRouteData,
 //   getLocationData,
@@ -173,6 +174,25 @@ const CubeStoreDownTask = () => {
         rowKey="id"
         pagination={{ ...tableProps.pagination, showQuickJumper: true }}
         tableTitle="互动数据列表"
+        toolbarButton={
+          <Space>
+            {/* <Button type="primary">导入模版</Button>
+            <Button key="button">批量导出</Button> */}
+            <Button
+              key="button"
+              onClick={() =>
+                exportReq({
+                  pagination: tableProps.pagination,
+                  param,
+                  title: '警报列表',
+                  exportUrl: '/management/activity/call/history/export'
+                })
+              }
+            >
+              导出
+            </Button>
+          </Space>
+        }
         // toolbarButton={
         //   <Space>
         //     <Button key="button">导出</Button>

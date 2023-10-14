@@ -65,6 +65,17 @@ const DeviceListColumns = ({ setAdminModalOpen, detailData, deleteRoleReq, searc
             <div>
               <a
                 onClick={() => {
+                  // setShowModal(true);
+                  history.push('/admin/list');
+                }}
+              >
+                用户
+              </a>
+            </div>
+
+            <div>
+              <a
+                onClick={() => {
                   // history.push('/device/detail?id=' + record.id);
 
                   confirm({
