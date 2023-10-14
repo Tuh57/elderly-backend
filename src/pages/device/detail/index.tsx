@@ -87,7 +87,7 @@ const CubeStoreDownTask = (props) => {
             <Descriptions title="" size={'middle'}>
               <Descriptions.Item label="设备ID">{device.device_no}</Descriptions.Item>
               <Descriptions.Item label="设备名称">{device.nickname}</Descriptions.Item>
-              <Descriptions.Item label="账户ID">{device.family?.nickname}</Descriptions.Item>
+              <Descriptions.Item label="账户ID">{device.family?.family_no}</Descriptions.Item>
               <Descriptions.Item label="软件版本">{device.software_version}</Descriptions.Item>
               <Descriptions.Item label="固件版本">{device.firmware_version}</Descriptions.Item>
               <Descriptions.Item label="激活状态">{device.active ? '已激活' : '未激活'}</Descriptions.Item>

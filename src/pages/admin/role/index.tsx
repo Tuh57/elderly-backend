@@ -12,6 +12,7 @@ import { request, history } from 'umi';
 // } from '@/api/inventoryManagementApi';
 
 const DeviceListColumns = ({ setAdminModalOpen, detailData, deleteRoleReq, search }) => {
+  const { confirm } = Modal;
   return [
     {
       title: '序号',
@@ -65,8 +66,21 @@ const DeviceListColumns = ({ setAdminModalOpen, detailData, deleteRoleReq, searc
               <a
                 onClick={() => {
                   // history.push('/device/detail?id=' + record.id);
-                  deleteRoleReq(record.id);
-                  search.submit();
+
+                  confirm({
+                    title: '你确认要删除此用户吗？',
+                    content: '',
+                    onOk() {
+                      deleteRoleReq(record.id);
+                      message.success('删除成功');
+                      setTimeout(() => {
+                        search.submit();
+                      }, 300);
+                    },
+                    onCancel() {
+                      console.log('Cancel');
+                    }
+                  });
                 }}
               >
                 删除

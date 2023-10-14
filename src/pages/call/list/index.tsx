@@ -53,7 +53,7 @@ const DeviceListColumns = () => {
       dataIndex: 'start_time',
       width: 100,
       render: (text) => {
-        return moment(text * 1000).format('YYYY-MM-DD HH:mm:ss');
+        return text ? moment(text * 1000).format('YYYY-MM-DD HH:mm:ss') : '';
       }
     },
     {
@@ -61,7 +61,7 @@ const DeviceListColumns = () => {
       dataIndex: 'end_time',
       width: 100,
       render: (text) => {
-        return moment(text * 1000).format('YYYY-MM-DD HH:mm:ss');
+        return text ? moment(text * 1000).format('YYYY-MM-DD HH:mm:ss') : '';
       }
     },
     {
@@ -104,6 +104,11 @@ const CubeStoreDownTask = () => {
   const detailData = useRef();
 
   const getListReq = async (params) => {
+    if (params.param?.createAt) {
+      params.param.create_start_time = params.param.createAt[0].unix();
+      params.param.create_end_time = params.param.createAt[1].unix();
+    }
+
     return request('/management/activity/call/history/list', {
       method: 'POST',
       data: params
@@ -153,7 +158,7 @@ const CubeStoreDownTask = () => {
           />
         </Form.Item>
 
-        <Form.Item label="通话时间段" name="createTime">
+        <Form.Item label="通话时间段" name="createAt">
           <DatePicker.RangePicker allowClear showTime style={{ width: '100%' }} />
         </Form.Item>
 

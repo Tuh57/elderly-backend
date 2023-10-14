@@ -3,6 +3,7 @@ import { Button, DatePicker, Form, Input, Select, Space } from 'antd';
 import React, { useEffect, useState, useRef } from 'react';
 import KeepAlive, { useAliveController } from 'react-activation';
 import { request, history } from 'umi';
+import moment from 'moment';
 // import {
 //   getInboundRouteData,
 //   getLocationData,
@@ -38,8 +39,11 @@ const DeviceListColumns = () => {
     },
     {
       title: '警报时间',
-      dataIndex: 'date',
-      width: 200
+      dataIndex: 'datetime',
+      width: 200,
+      render: (text) => {
+        return text ? moment(text * 1000).format('YYYY-MM-DD HH:mm:ss') : '';
+      }
     },
     {
       title: '子女账号',

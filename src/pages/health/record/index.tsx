@@ -5,7 +5,7 @@ import KeepAlive, { useAliveController } from 'react-activation';
 import { request, useHistory } from 'umi';
 import ReactECharts from 'echarts-for-react';
 import './index.less';
-import { models } from '@/.umi/plugin-model/Provider';
+import moment from 'moment';
 
 const CubeStoreDownTask = (props) => {
   const history = useHistory();
@@ -63,7 +63,7 @@ const CubeStoreDownTask = (props) => {
 
   const { id, family_id } = history.location.query;
 
-  const timeQuery = ['hour', 'day', 'day', 'month'];
+  const timeQuery = ['hour', 'week', 'day', 'month'];
 
   const getReq1 = async () => {
     return request('/management/health/record/aggregate', {
@@ -258,8 +258,11 @@ const CubeStoreDownTask = (props) => {
     },
     {
       title: '监测时间',
-      dataIndex: 'date',
-      width: 300
+      dataIndex: 'datetime',
+      width: 300,
+      render: (text, record, index) => {
+        return text ? moment(text * 1000).format('YYYY-MM-DD HH:mm:ss') : '';
+      }
     },
     {
       title: '监测结果',

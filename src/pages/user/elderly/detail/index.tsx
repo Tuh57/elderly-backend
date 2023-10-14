@@ -1,7 +1,8 @@
 import { useXpTable, XpPage, XpSearchForm, XpTable, XpModal } from '@/common/es/index';
-import { Button, DatePicker, Form, Input, Select, Space, Card, Descriptions } from 'antd';
+import { Button, DatePicker, Form, Input, Select, Space, Card, Descriptions, Avatar } from 'antd';
 import React, { useEffect, useState, useRef } from 'react';
 import KeepAlive, { useAliveController } from 'react-activation';
+import moment from 'moment';
 import { request, useHistory } from 'umi';
 
 const CubeStoreDownTask = (props) => {
@@ -178,12 +179,15 @@ const CubeStoreDownTask = (props) => {
       <div>
         <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
           <Card title="基本信息" bordered={true}>
+            <Avatar size="large" src={family.avatar} />
             <Descriptions title="" size={'middle'}>
-              <Descriptions.Item label="账户ID">{family.id}</Descriptions.Item>
+              <Descriptions.Item label="账户ID">{family.family_no}</Descriptions.Item>
               <Descriptions.Item label="手机号">{family.phone}</Descriptions.Item>
               <Descriptions.Item label="昵称">{family?.nickname}</Descriptions.Item>
               <Descriptions.Item label="状态">{family.frozen ? '冻结' : '正常'}</Descriptions.Item>
-              <Descriptions.Item label="创建时间">{family.create_at}</Descriptions.Item>
+              <Descriptions.Item label="创建时间">
+                {family.create_at ? moment(family.create_at * 1000).format('YYYY-MM-DD hh:mm:ss') : ''}
+              </Descriptions.Item>
             </Descriptions>
           </Card>
           <Card title="设备信息" bordered={true}>
