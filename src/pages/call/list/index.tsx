@@ -106,8 +106,8 @@ const CubeStoreDownTask = () => {
 
   const getListReq = async (params) => {
     if (params.param?.createAt) {
-      params.param.create_start_time = params.param.createAt[0].unix();
-      params.param.create_end_time = params.param.createAt[1].unix();
+      params.param.start_time = params.param.createAt[0].unix();
+      params.param.end_time = params.param.createAt[1].unix();
     }
 
     return request('/management/activity/call/history/list', {

@@ -44,7 +44,7 @@ const HealthListColumns = () => {
     },
     {
       title: '创建人账号',
-      dataIndex: ['creator', 'username'],
+      dataIndex: ['creator', 'phone'],
       width: 100
     },
     {
@@ -124,23 +124,23 @@ const HealthList = () => {
         }}
         onReset={search.reset}
       >
-        {/* <Form.Item label="档案编号" name="file_no">
-          <Input placeholder="请输入档案编号" allowClear />
-        </Form.Item> */}
-
-        <Form.Item label="家庭账号" name="family_id">
-          <Input placeholder="请输入家庭账号" allowClear />
-        </Form.Item>
-
         <Form.Item label="用户姓名" name="name">
           <Input placeholder="请输入用户姓名" allowClear />
         </Form.Item>
 
-        {/* <Form.Item label="创建人" name="creator.nickname">
+        <Form.Item label="家庭账号" name="family_phone">
+          <Input placeholder="请输入家庭账号" allowClear />
+        </Form.Item>
+
+        <Form.Item label="档案编号" name="file_no">
+          <Input placeholder="请输入档案编号" allowClear />
+        </Form.Item>
+
+        <Form.Item label="创建人" name="user_phone">
           <Input placeholder="请输入创建人" allowClear />
         </Form.Item>
 
-        <Form.Item label="创建人账号" name="creator.phone">
+        {/* <Form.Item label="创建人账号" name="creator.phone">
           <Input placeholder="请输入创建人账号" allowClear />
         </Form.Item>
 

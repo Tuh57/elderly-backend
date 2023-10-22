@@ -66,7 +66,9 @@ const CubeStoreDownTask = (props) => {
             <Descriptions title="" size={'middle'}>
               <Descriptions.Item label="姓名">{healths?.name}</Descriptions.Item>
               <Descriptions.Item label="性别">{healths.gender ? '男人' : '女人'}</Descriptions.Item>
-              <Descriptions.Item label="出生日期">{healths.birthday}</Descriptions.Item>
+              <Descriptions.Item label="年龄">
+                {healths.age} ({healths.birthday})
+              </Descriptions.Item>
               <Descriptions.Item label="身高">{healths.height}</Descriptions.Item>
               <Descriptions.Item label="体重">{healths.weight}</Descriptions.Item>
               <Descriptions.Item label="语言偏好">{healths.language === 'en' ? '英语' : '普通话'}</Descriptions.Item>

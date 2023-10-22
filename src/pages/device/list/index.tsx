@@ -66,12 +66,17 @@ const DeviceListColumns = () => {
       }
     },
     {
+      title: '系统版本',
+      dataIndex: 'motherboard_version',
+      width: 100
+    },
+    {
       title: '软件版本',
       dataIndex: 'software_version',
       width: 100
     },
     {
-      title: '硬件版本',
+      title: '固件版本',
       dataIndex: 'firmware_version',
       width: 100
     },
