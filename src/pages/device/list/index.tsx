@@ -59,10 +59,10 @@ const DeviceListColumns = () => {
     },
     {
       title: '出厂日期',
-      dataIndex: 'create_at',
+      dataIndex: 'manufacture_datetime',
       width: 200,
       render: (text) => {
-        return moment(text * 1000).format('YYYY-MM-DD HH:mm:ss');
+        return moment(text).format('YYYY-MM-DD HH:mm:ss');
       }
     },
     {
@@ -206,7 +206,7 @@ const CubeStoreDownTask = () => {
         </Form.Item>
 
         <Form.Item label="出厂日期" name="createTime">
-          <DatePicker.RangePicker allowClear style={{ width: '100%' }} />
+          <DatePicker.RangePicker allowClear showTime style={{ width: '100%' }} />
         </Form.Item>
 
         {/* <Form.Item label="激活时间" name="endTime">
