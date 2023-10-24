@@ -5,7 +5,6 @@ const authHeaderInterceptor = (url, options) => {
   const token = window.localStorage.getItem('token');
   if (token) {
     const headers = {
-      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`
     };
     return {
@@ -27,14 +26,14 @@ const errorHandler = (error) => {
 
 const responseInterceptor = async (response) => {
   const { status } = response;
-  if (response.errcode === 2004 || response.errcode === 2005) {
+  const res = await response.clone().json();
+  if (res.errcode === 2004 || res.errcode === 2005) {
     console.log('responseInterceptor', status, response.errcode);
     window.localStorage.removeItem('token');
     history.replace('/login');
   }
 
   if (status !== 200) {
-    const res = await response.clone().json();
     console.log(res, 'errmsgerrmsgerrmsg');
     message.error(res.errmsg);
   }

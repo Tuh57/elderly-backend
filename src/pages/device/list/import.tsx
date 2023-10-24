@@ -20,7 +20,11 @@ let file: any = null;
 export const importTempalte = async (params: any) => {
   const res = await request(`/management/device/import`, {
     method: 'POST',
-    data: params
+    data: params,
+    contentType: 'multipart/form-data',
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
   });
   return res;
 };
