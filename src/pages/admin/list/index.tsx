@@ -384,12 +384,24 @@ const CubeStoreDownTask = () => {
         }}
         onReset={search.reset}
       >
+        <Form.Item label="登录账号" name="username">
+          <Input placeholder="请输入登录账号" allowClear />
+        </Form.Item>
+
+        <Form.Item label="昵称" name="nickname">
+          <Input placeholder="请输入昵称" allowClear />
+        </Form.Item>
+
         <Form.Item label="手机号码" name="phone">
           <Input placeholder="请输入手机号码" allowClear />
         </Form.Item>
 
-        <Form.Item label="昵称" name="nickname">
-          <Input placeholder="请输入用户名" allowClear />
+        <Form.Item label="邮箱" name="email">
+          <Input placeholder="请输入邮箱" allowClear />
+        </Form.Item>
+
+        <Form.Item label="角色" name="role_id">
+          <Select options={valueToLabel(roles, 'title', 'id')} allowClear placeholder="请选择" />
         </Form.Item>
 
         <Form.Item label="状态" name="enable">
