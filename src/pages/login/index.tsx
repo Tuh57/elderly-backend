@@ -167,12 +167,12 @@ const CubeStoreDownTask = (props) => {
 
       {showModal && (
         <Modal maskClosable={false} open={true} width={800} title={'忘记密码'} onOk={onOk} onCancel={onCancel}>
-          <Form labelCol={{ span: 6 }} wrapperCol={{ span: 10 }} form={form2}>
-            <Form.Item label="输入邮箱账号" name="password1" rules={[{ required: true, message: '请输入邮箱账号' }]}>
+          <Form labelCol={{ span: 6 }} wrapperCol={{ span: 10 }} form={form1}>
+            <Form.Item label="输入邮箱账号" name="email" rules={[{ required: true, message: '请输入邮箱账号' }]}>
               <Input />
             </Form.Item>
 
-            <Form.Item label="输入账户名" name="password2" rules={[{ required: true, message: '请输入账户名' }]}>
+            <Form.Item label="输入账户名" name="username" rules={[{ required: true, message: '请输入账户名' }]}>
               <Input />
             </Form.Item>
 
@@ -195,11 +195,11 @@ const CubeStoreDownTask = (props) => {
       {showModal2 && (
         <Modal maskClosable={false} open={true} width={800} title={'重置密码'} onOk={onOk1} onCancel={onCancel1}>
           <Form labelCol={{ span: 6 }} wrapperCol={{ span: 10 }} form={form2}>
-            <Form.Item label="输入密码" name="email" rules={[{ required: true, message: '请输入密码' }]}>
+            <Form.Item label="输入密码" name="password1" rules={[{ required: true, message: '请输入密码' }]}>
               <Input />
             </Form.Item>
 
-            <Form.Item label="重新输入密码" name="username" rules={[{ required: true, message: '请输入密码' }]}>
+            <Form.Item label="重新输入密码" name="password2" rules={[{ required: true, message: '请输入密码' }]}>
               <Input />
             </Form.Item>
 
