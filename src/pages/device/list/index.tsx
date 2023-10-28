@@ -150,6 +150,7 @@ const CubeStoreDownTask = () => {
 
     const file = await request('/management/device/export', {
       method: 'POST',
+      responseType: 'blob',
       data: {
         param,
         page: pagination.current,

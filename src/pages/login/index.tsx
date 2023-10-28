@@ -38,8 +38,10 @@ const CubeStoreDownTask = (props) => {
   };
 
   useEffect(() => {
-    console.log('111');
-    setShowModal2(true);
+    if (history.location?.query?.code) {
+      console.log('111');
+      setShowModal2(true);
+    }
   }, [history.location?.query?.code]);
 
   const onFinish = () => {
@@ -144,13 +146,16 @@ const CubeStoreDownTask = (props) => {
           >
             <Input.Password />
           </Form.Item>
-          <a
-            onClick={() => {
-              setShowModal(true);
-            }}
-          >
-            忘记密码
-          </a>
+
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <a
+              onClick={() => {
+                setShowModal(true);
+              }}
+            >
+              忘记密码
+            </a>
+          </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <Button type="primary" htmlType="submit">
