@@ -36,6 +36,7 @@ const exportReq = async ({ pagination, param = {}, title, exportUrl }) => {
 
   const file = await request(exportUrl, {
     method: 'POST',
+    responseType: 'blob',
     data: {
       param,
       page: pagination.current,

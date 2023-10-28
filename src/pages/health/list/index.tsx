@@ -167,4 +167,4 @@ const keepliveView = () => (
     <HealthList />
   </KeepAlive>
 );
-export default keepliveView;
+export default HealthList;

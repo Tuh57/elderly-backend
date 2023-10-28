@@ -24,13 +24,22 @@ const errorHandler = (error) => {
   return response;
 };
 
-const responseInterceptor = async (response) => {
+const responseInterceptor = async (response, options) => {
   const { status } = response;
+
+  // console.log(response, options, 'response');
+  if (options.responseType === 'blob') {
+    return response;
+  }
   const res = await response.clone().json();
   if (res.errcode === 2004 || res.errcode === 2005) {
     console.log('responseInterceptor', status, response.errcode);
     window.localStorage.removeItem('token');
-    history.replace('/login');
+    console.log(history, 'history');
+    // history.replace('/login');
+    if (history.location.pathname !== '/login') {
+      history.replace('/login');
+    }
   }
 
   if (status !== 200) {
@@ -54,7 +63,10 @@ export function render(oldRender) {
   if (window.localStorage.getItem('token')) {
     oldRender();
   } else {
-    history.push('/login');
+    console.log(history, 'history');
+    if (history.location.pathname !== '/login') {
+      history.replace('/login');
+    }
     oldRender();
   }
 }

@@ -15,7 +15,7 @@ window.mockRouter = [
     id: '/pc/1',
     icon: '',
     buttons: null,
-    resourceType: 2,
+    resourceType: 1,
     resourceName: '数据管理',
     title: '数据管理',
     children: [
@@ -45,7 +45,7 @@ window.mockRouter = [
             title: '设备详情'
           }
         ],
-        resourceType: 2,
+        resourceType: 1,
         isHidden: false,
         permission: '',
         resourceName: '设备管理',
@@ -87,7 +87,7 @@ window.mockRouter = [
             title: '健康监测详情'
           }
         ],
-        resourceType: 2,
+        resourceType: 1,
         isHidden: false,
         permission: '',
         resourceName: '健康数据',
@@ -119,7 +119,7 @@ window.mockRouter = [
             title: '互动详情'
           }
         ],
-        resourceType: 2,
+        resourceType: 1,
         isHidden: false,
         permission: '',
         resourceName: '互动数据',
@@ -141,7 +141,7 @@ window.mockRouter = [
             title: '异常警报记录'
           }
         ],
-        resourceType: 2,
+        resourceType: 1,
         isHidden: false,
         permission: '',
         resourceName: '安全监控',
@@ -183,7 +183,7 @@ window.mockRouter = [
             title: '角色管理'
           }
         ],
-        resourceType: 2,
+        resourceType: 1,
         isHidden: false,
         permission: '',
         resourceName: '账户管理',
@@ -267,11 +267,11 @@ export default function (props) {
     };
   }, [clearCache]);
 
-  useEffect(() => {
-    getLoginInfo().then((res) => {
-      console.log(res);
-    });
-  }, []);
+  // useEffect(() => {
+  //   getLoginInfo().then((res) => {
+  //     console.log(res);
+  //   });
+  // }, []);
 
   if (props.location.pathname === '/login') {
     return <div>{props.children}</div>;

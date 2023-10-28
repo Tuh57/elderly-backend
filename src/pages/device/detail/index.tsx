@@ -8,6 +8,8 @@ import moment from 'moment';
 const CubeStoreDownTask = (props) => {
   const history = useHistory();
   const [device, setDevice] = useState({});
+  const [sapp, setSapp] = useState([]);
+  const [bpart, setBpart] = useState([]);
 
   console.log(history);
   const [form] = Form.useForm();
@@ -25,6 +27,8 @@ const CubeStoreDownTask = (props) => {
     getDeviceListReq().then((res) => {
       console.log(res);
       setDevice(res.device);
+      setSapp(res.app_versions);
+      setBpart(res.third_part_versions);
     });
   }, []);
 
@@ -32,16 +36,17 @@ const CubeStoreDownTask = (props) => {
     {
       title: '编号',
       dataIndex: 'index',
-      width: 150
+      width: 150,
+      render: (text, record, index) => index + 1
     },
     {
       title: '名称',
-      dataIndex: 'index',
+      dataIndex: 'name',
       width: 300
     },
     {
       title: '当前版本',
-      dataIndex: 'index',
+      dataIndex: 'version',
       width: 300
     }
   ];
@@ -50,32 +55,37 @@ const CubeStoreDownTask = (props) => {
     {
       title: '编号',
       dataIndex: 'index',
-      width: 150
-    },
-    {
-      title: '系统版本',
-      dataIndex: 'index',
-      width: 200
+      width: 150,
+      render: (text, record, index) => index + 1
     },
     {
       title: '软件版本',
-      dataIndex: 'index',
+      dataIndex: 'version',
       width: 200
     },
     {
       title: '发布日期',
-      dataIndex: 'index',
-      width: 200
+      dataIndex: 'publish_at',
+      width: 200,
+      render: (text) => {
+        return text ? moment(text * 1000).format('YYYY-MM-DD HH:mm:ss') : '';
+      }
     },
     {
       title: '是否更新',
-      dataIndex: 'index',
-      width: 100
+      dataIndex: 'upgraded',
+      width: 100,
+      render: (text) => {
+        return text ? '是' : '否';
+      }
     },
     {
       title: '更新日期',
-      dataIndex: 'index',
-      width: 200
+      dataIndex: 'upgraded_at',
+      width: 200,
+      render: (text) => {
+        return text ? moment(text * 1000).format('YYYY-MM-DD HH:mm:ss') : '';
+      }
     }
   ];
 
@@ -100,10 +110,10 @@ const CubeStoreDownTask = (props) => {
             </Descriptions>
           </Card>
           <Card title="第三方软件信息" bordered={true}>
-            <XpTable columns={columns1} toolbarShowSetting={false} />
+            <XpTable columns={columns1} toolbarShowSetting={false} dataSource={bpart} />
           </Card>
           <Card title="系统升级信息" bordered={true}>
-            <XpTable columns={columns2} toolbarShowSetting={false} />
+            <XpTable columns={columns2} toolbarShowSetting={false} dataSource={sapp} />
           </Card>
         </Space>
       </div>

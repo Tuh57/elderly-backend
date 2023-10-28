@@ -1,17 +1,20 @@
 import { useXpTable, XpPage, XpSearchForm, XpTable, XpModal } from '@/common/es/index';
-import { Button, DatePicker, Form, Input, Select, Space, Card, Descriptions, Checkbox, message } from 'antd';
+import { Button, DatePicker, Form, Input, Select, Space, Card, Descriptions, Checkbox, message, Modal } from 'antd';
 import React, { useEffect, useState, useRef } from 'react';
 import KeepAlive, { useAliveController } from 'react-activation';
 import { request, useHistory } from 'umi';
-
 import less from './index.less';
 
 const CubeStoreDownTask = (props) => {
   const history = useHistory();
   const [device, setDevice] = useState({});
+  const [showModal, setShowModal] = useState(false);
+  const [showModal2, setShowModal2] = useState(false);
 
   console.log(history);
   const [form] = Form.useForm();
+  const [form1] = Form.useForm();
+  const [form2] = Form.useForm();
 
   const login = async (params) => {
     return request('/management/auth/user/login', {
@@ -20,7 +23,24 @@ const CubeStoreDownTask = (props) => {
     });
   };
 
-  useEffect(() => {}, []);
+  const resetPassword = async (params) => {
+    return request('/management/auth/request/password/reset', {
+      method: 'Post',
+      data: params
+    });
+  };
+
+  const resetPassword2 = async (params) => {
+    return request('/management/auth/password/reset', {
+      method: 'Post',
+      data: params
+    });
+  };
+
+  useEffect(() => {
+    console.log('111');
+    setShowModal2(true);
+  }, [history.location?.query?.code]);
 
   const onFinish = () => {
     // history.push('/home');
@@ -40,6 +60,58 @@ const CubeStoreDownTask = (props) => {
         message.error(res.errmsg);
       }
     });
+  };
+  const onOk = async () => {
+    const data = await form1.getFieldsValue();
+    console.log(data);
+    await resetPassword(data);
+    message.success('发送邮件成功');
+  };
+  const onCancel = () => {
+    setShowModal(false);
+  };
+
+  const onOk1 = async () => {
+    const data = await form2.getFieldsValue();
+    console.log(data);
+    data.code = history.location?.query?.code;
+    await resetPassword2(data);
+    message.success('重置密码成功');
+  };
+  const onCancel1 = () => {
+    setShowModal2(false);
+  };
+
+  const showModal1 = () => {
+    const onOk = () => {};
+    const onCancel = () => {};
+
+    return (
+      <Modal maskClosable={false} open={true} width={800} title={'忘记密码'} onOk={onOk} onCancel={onCancel}>
+        <Form labelCol={{ span: 6 }} wrapperCol={{ span: 10 }} form={form}>
+          <Form.Item label="输入邮箱账号" name="title" rules={[{ required: true, message: '请输入邮箱账号' }]}>
+            <Input />
+          </Form.Item>
+
+          <Form.Item label="输入账户名" name="title" rules={[{ required: true, message: '请输入账户名' }]}>
+            <Input />
+          </Form.Item>
+
+          {/* <Form.Item label="角色权限" name="permissions">
+            {treeData.length && (
+              <Tree
+                treeData={treeData}
+                // ref={treeRef}
+                checkable
+                onSelect={onSelect}
+                onCheck={onCheck}
+                defaultCheckedKeys={selectedRowKeys}
+              />
+            )}
+          </Form.Item> */}
+        </Form>
+      </Modal>
+    );
   };
 
   return (
@@ -72,10 +144,13 @@ const CubeStoreDownTask = (props) => {
           >
             <Input.Password />
           </Form.Item>
-          {/* 
-          <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item> */}
+          <a
+            onClick={() => {
+              setShowModal(true);
+            }}
+          >
+            忘记密码
+          </a>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <Button type="primary" htmlType="submit">
@@ -84,6 +159,60 @@ const CubeStoreDownTask = (props) => {
           </Form.Item>
         </Form>
       </div>
+
+      {showModal && (
+        <Modal maskClosable={false} open={true} width={800} title={'忘记密码'} onOk={onOk} onCancel={onCancel}>
+          <Form labelCol={{ span: 6 }} wrapperCol={{ span: 10 }} form={form2}>
+            <Form.Item label="输入邮箱账号" name="password1" rules={[{ required: true, message: '请输入邮箱账号' }]}>
+              <Input />
+            </Form.Item>
+
+            <Form.Item label="输入账户名" name="password2" rules={[{ required: true, message: '请输入账户名' }]}>
+              <Input />
+            </Form.Item>
+
+            {/* <Form.Item label="角色权限" name="permissions">
+            {treeData.length && (
+              <Tree
+                treeData={treeData}
+                // ref={treeRef}
+                checkable
+                onSelect={onSelect}
+                onCheck={onCheck}
+                defaultCheckedKeys={selectedRowKeys}
+              />
+            )}
+          </Form.Item> */}
+          </Form>
+        </Modal>
+      )}
+
+      {showModal2 && (
+        <Modal maskClosable={false} open={true} width={800} title={'重置密码'} onOk={onOk1} onCancel={onCancel1}>
+          <Form labelCol={{ span: 6 }} wrapperCol={{ span: 10 }} form={form2}>
+            <Form.Item label="输入密码" name="email" rules={[{ required: true, message: '请输入密码' }]}>
+              <Input />
+            </Form.Item>
+
+            <Form.Item label="重新输入密码" name="username" rules={[{ required: true, message: '请输入密码' }]}>
+              <Input />
+            </Form.Item>
+
+            {/* <Form.Item label="角色权限" name="permissions">
+            {treeData.length && (
+              <Tree
+                treeData={treeData}
+                // ref={treeRef}
+                checkable
+                onSelect={onSelect}
+                onCheck={onCheck}
+                defaultCheckedKeys={selectedRowKeys}
+              />
+            )}
+          </Form.Item> */}
+          </Form>
+        </Modal>
+      )}
     </XpPage>
   );
 };
