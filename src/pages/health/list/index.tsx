@@ -136,8 +136,8 @@ const HealthList = () => {
           <Input placeholder="请输入档案编号" allowClear />
         </Form.Item>
 
-        <Form.Item label="创建人" name="user_phone">
-          <Input placeholder="请输入创建人" allowClear />
+        <Form.Item label="创建人账号" name="user_phone">
+          <Input placeholder="请输入创建人账号" allowClear />
         </Form.Item>
 
         {/* <Form.Item label="创建人账号" name="creator.phone">
