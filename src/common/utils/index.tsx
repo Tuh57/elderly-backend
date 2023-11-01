@@ -6,7 +6,7 @@ import moment from 'moment';
 const exportData = (res: any, fileName?: string) => {
   console.log(res);
 
-  const blob = new Blob(['\ufeff' + res], {
+  const blob = new Blob([res], {
     type: 'text/csv;charset=UTF-8'
   });
   const url = window.URL.createObjectURL(blob);
