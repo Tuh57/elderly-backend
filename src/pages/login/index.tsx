@@ -19,6 +19,7 @@ const CubeStoreDownTask = (props) => {
   const login = async (params) => {
     return request('/management/auth/user/login', {
       method: 'Post',
+      timeout: 5000,
       data: params
     });
   };
@@ -131,18 +132,17 @@ const CubeStoreDownTask = (props) => {
           onFinish={onFinish}
           form={form}
         >
-          <Form.Item
-            label="登录账户"
-            name="username"
-            rules={[{ required: true, message: 'Please input your username!' }]}
-          >
+          <Form.Item label="登录账户" name="username" rules={[{ required: true, message: '请输入登录账户!' }]}>
             <Input />
           </Form.Item>
 
           <Form.Item
             label="登录密码"
             name="password"
-            rules={[{ required: true, message: 'Please input your password!' }]}
+            rules={[
+              { required: true, message: '请输入密码!' },
+              { min: 6, message: '至少6位密码' }
+            ]}
           >
             <Input.Password />
           </Form.Item>
