@@ -65,6 +65,16 @@ const CubeStoreDownTask = (props) => {
 
   const timeQuery = ['hour', 'week', 'day', 'month'];
 
+  useEffect(() => {
+    setTimeIndex(3);
+    setTimeType('year');
+    const date = moment(new Date());
+    setQueryTime([date.startOf('year').unix(), date.endOf('year').unix()]);
+    setTimeout(() => {
+      setDateShow(true);
+    }, 300);
+  }, []);
+
   const getReq1 = async () => {
     return request('/management/health/record/aggregate', {
       method: 'POST',
@@ -519,7 +529,7 @@ const CubeStoreDownTask = (props) => {
               <div className="h">
                 <div>时间周期：</div>
                 <div>
-                  <Radio.Group defaultValue="0" onChange={onClickTime}>
+                  <Radio.Group defaultValue="3" onChange={onClickTime}>
                     <Radio.Button value="0">日</Radio.Button>
                     <Radio.Button value="1">周</Radio.Button>
                     <Radio.Button value="2">月</Radio.Button>
@@ -537,7 +547,7 @@ const CubeStoreDownTask = (props) => {
                       onChange={onChange}
                       onPanelChange={onPanelChange}
                       picker={timeType}
-                      defaultValue={null}
+                      defaultValue={moment(new Date())}
                     />
                   )}
                 </div>
