@@ -36,11 +36,11 @@ const DeviceListColumns = () => {
   return [
     {
       title: '序号',
-      dataIndex: 'index',
-      width: 60,
+      dataIndex: 'id',
+      width: 60
 
-      shouldCellUpdate: () => true,
-      render: (text, record, index) => index + 1
+      // shouldCellUpdate: () => true,
+      // render: (text, record, index) => index + 1
     },
     {
       title: '设备ID',

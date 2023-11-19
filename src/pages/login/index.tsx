@@ -55,7 +55,8 @@ const CubeStoreDownTask = (props) => {
 
         localStorage.setItem('token', res.access_token);
         const url = user.role?.extra?.permissions[0]?.children[0].children[0].url;
-        window.location.href = url;
+        history.replace(url);
+        // window.location.href = url;
 
         // history.push(url);
         // window.location.reload();

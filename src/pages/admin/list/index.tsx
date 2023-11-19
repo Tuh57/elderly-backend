@@ -31,16 +31,16 @@ const valueToLabel = (present: any, label = 'valueName', value = 'valueCode') =>
   return [];
 };
 
-const DeviceListColumns = ({ detailData, setAdminModalOpen, disableUser, enableUser, search }) => {
+const DeviceListColumns = ({ detailData, setAdminModalOpen, disableUser, enableUser, search, setDisable }) => {
   const { confirm } = Modal;
   return [
     {
       title: '序号',
-      dataIndex: 'index',
-      width: 60,
+      dataIndex: 'id',
+      width: 60
 
-      shouldCellUpdate: () => true,
-      render: (text, record, index) => index + 1
+      // shouldCellUpdate: () => true,
+      // render: (text, record, index) => index + 1
     },
     {
       title: '账户ID',
@@ -102,21 +102,25 @@ const DeviceListColumns = ({ detailData, setAdminModalOpen, disableUser, enableU
       render: (text, record) => {
         return (
           <Space>
-            {/* <div>
+            <div>
               <a
                 onClick={() => {
                   // history.push('/device/detail?id=' + record.id);
+                  detailData.current = record;
+                  setDisable(true);
+                  setAdminModalOpen(true);
                 }}
               >
-                详情
+                查看
               </a>
-            </div> */}
+            </div>
 
             <div>
               <a
                 onClick={() => {
                   // history.push('/device/detail?id=' + record.id);
                   detailData.current = record;
+                  setDisable(false);
                   setAdminModalOpen(true);
                 }}
               >
@@ -158,7 +162,7 @@ const DeviceListColumns = ({ detailData, setAdminModalOpen, disableUser, enableU
 };
 
 const AdminModal = (props) => {
-  const { adminModalOpen, detailData, setAdminModalOpen, roles, search } = props;
+  const { adminModalOpen, detailData, setAdminModalOpen, roles, search, disable } = props;
   const [form] = Form.useForm();
 
   const adminUserCreateReq = (params) => {
@@ -201,6 +205,10 @@ const AdminModal = (props) => {
   }, detailData?.current?.id);
 
   const onOk = async () => {
+    if (disable) {
+      setAdminModalOpen(false);
+      return;
+    }
     // console.log(treeData);
     const formData = await form.validateFields();
     console.log(formData);
@@ -246,7 +254,7 @@ const AdminModal = (props) => {
       maskClosable={false}
       open={adminModalOpen}
       width={600}
-      title={detailData.current.id ? '编辑用户' : '新增用户'}
+      title={detailData.current.id ? '用户操作' : '新增用户'}
       onOk={onOk}
       onCancel={onCancel}
     >
@@ -256,11 +264,11 @@ const AdminModal = (props) => {
           name="username"
           rules={[{ required: true, message: '请输入登录账号 长度在3-15', min: 3, max: 15 }]}
         >
-          <Input />
+          <Input disabled={disable} />
         </Form.Item>
 
         <Form.Item label="邮箱" name="email" rules={[{ required: true, message: '请输入邮箱', type: 'email' }]}>
-          <Input />
+          <Input disabled={disable} />
         </Form.Item>
 
         <Form.Item
@@ -268,7 +276,7 @@ const AdminModal = (props) => {
           name="phone"
           rules={[{ required: false, message: '请输入手机号', validator: checkPhone }]}
         >
-          <Input />
+          <Input disabled={disable} />
         </Form.Item>
 
         <Form.Item
@@ -276,18 +284,18 @@ const AdminModal = (props) => {
           name="password1"
           rules={[{ required: !detailData.current.id, message: '请输入最少8位密码', min: 8 }]}
         >
-          <Input />
+          <Input disabled={disable} />
         </Form.Item>
         <Form.Item
           label="确认密码"
           name="password2"
           rules={[{ required: !detailData.current.id, message: '请输入最少8位数密码', min: 8 }]}
         >
-          <Input />
+          <Input disabled={disable} />
         </Form.Item>
 
         <Form.Item label="用户名称" name="nickname" rules={[{ required: true, message: '请输入用户名称' }]}>
-          <Input />
+          <Input disabled={disable} />
         </Form.Item>
 
         <Form.Item label="是否启用" name="enable" rules={[{ required: true, message: '请选择是否启用' }]}>
@@ -298,11 +306,12 @@ const AdminModal = (props) => {
             ]}
             allowClear
             placeholder="请选择"
+            disabled={disable}
           />
         </Form.Item>
 
         <Form.Item label="角色" name="role_id" rules={[{ required: true, message: '请选择角色' }]}>
-          <Select options={valueToLabel(roles, 'title', 'id')} />
+          <Select options={valueToLabel(roles, 'title', 'id')} disabled={true} />
         </Form.Item>
       </Form>
     </Modal>
@@ -311,6 +320,7 @@ const AdminModal = (props) => {
 
 const CubeStoreDownTask = () => {
   const [adminModalOpen, setAdminModalOpen] = useState(false);
+  const [disable, setDisable] = useState(false);
   const [form] = Form.useForm();
   const [roles, setRoles] = useState();
 
@@ -384,21 +394,21 @@ const CubeStoreDownTask = () => {
         }}
         onReset={search.reset}
       >
-        <Form.Item label="登录账号" name="username">
-          <Input placeholder="请输入登录账号" allowClear />
+        <Form.Item label="关键词" name="keyword">
+          <Input placeholder="请输入关键词" allowClear />
         </Form.Item>
 
-        <Form.Item label="昵称" name="nickname">
+        {/* <Form.Item label="昵称" name="nickname">
           <Input placeholder="请输入昵称" allowClear />
         </Form.Item>
 
         <Form.Item label="手机号码" name="phone">
           <Input placeholder="请输入手机号码" allowClear />
-        </Form.Item>
-
+        </Form.Item> */}
+        {/* 
         <Form.Item label="邮箱" name="email">
           <Input placeholder="请输入邮箱" allowClear />
-        </Form.Item>
+        </Form.Item> */}
 
         <Form.Item label="角色" name="role_id">
           <Select options={valueToLabel(roles, 'title', 'id')} allowClear placeholder="请选择" />
@@ -426,7 +436,8 @@ const CubeStoreDownTask = () => {
           setAdminModalOpen,
           disableUser,
           enableUser,
-          search
+          search,
+          setDisable
         })}
         toolbarShowSetting={false}
         rowKey="id"
@@ -455,6 +466,7 @@ const CubeStoreDownTask = () => {
         roles={roles}
         setAdminModalOpen={setAdminModalOpen}
         search={search}
+        disable={disable}
       />
     </XpPage>
   );

@@ -19,11 +19,11 @@ const DeviceListColumns = ({ frozenChilden, unFrozenChilden, search }) => {
   return [
     {
       title: '编号',
-      dataIndex: 'index',
-      width: 60,
+      dataIndex: 'id',
+      width: 60
 
-      shouldCellUpdate: () => true,
-      render: (text, record, index) => index + 1
+      // shouldCellUpdate: () => true,
+      // render: (text, record, index) => index + 1
     },
     {
       title: '账户ID',

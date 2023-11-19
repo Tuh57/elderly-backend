@@ -261,10 +261,10 @@ const CubeStoreDownTask = (props) => {
   const columns1 = [
     {
       title: '序号',
-      dataIndex: 'index',
-      width: 60,
-      shouldCellUpdate: () => true,
-      render: (text, record, index) => index + 1
+      dataIndex: 'id',
+      width: 60
+      // shouldCellUpdate: () => true,
+      // render: (text, record, index) => index + 1
     },
     {
       title: '监测时间',

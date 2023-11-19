@@ -143,4 +143,4 @@ const keepliveView = () => (
     <CubeStoreDownTask />
   </KeepAlive>
 );
-export default keepliveView;
+export default CubeStoreDownTask;
