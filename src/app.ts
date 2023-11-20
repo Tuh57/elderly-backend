@@ -50,7 +50,7 @@ const responseInterceptor = async (response, options) => {
 };
 
 export const request: RequestConfig = {
-  timeout: 1000,
+  timeout: 60000,
   errorConfig: {},
   middlewares: [],
   requestInterceptors: [authHeaderInterceptor],
