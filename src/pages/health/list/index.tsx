@@ -40,12 +40,18 @@ const HealthListColumns = () => {
     {
       title: '创建人',
       dataIndex: ['creator', 'nickname'],
-      width: 200
+      width: 200,
+      render: (text, record) => {
+        return record.creator?.nickname || record.family?.nickname;
+      }
     },
     {
       title: '创建人账号',
       dataIndex: ['creator', 'phone'],
-      width: 100
+      width: 100,
+      render: (text, record) => {
+        return record.creator?.phone || record.family?.phone;
+      }
     },
     {
       title: '创建时间',
@@ -79,7 +85,7 @@ const HealthListColumns = () => {
                   history.push('/health/record?id=' + record.id);
                 }}
               >
-                查看检测数据
+                查看监测数据
               </a>
             </div>
           </Space>
