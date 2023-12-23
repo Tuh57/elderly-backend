@@ -301,7 +301,7 @@ const CubeStoreDownTask = (props) => {
       width: 300,
       render: (text, record, index) => {
         if (typeIndex === 2) {
-          return '收缩压：' + record.diastolic_pressure + ' ' + '舒张压：' + record.systolic_pressure;
+          return '舒张压：' + record.diastolic_pressure + ' ' + '收缩压：' + record.systolic_pressure;
         } else if (typeIndex === 5) {
           return record.fatigue_description;
         } else {
@@ -403,13 +403,13 @@ const CubeStoreDownTask = (props) => {
   const subtextFnc = () => {
     if (typeIndex === 2) {
       return (
-        '收缩压最小值：' +
-        (summary['diastolic_pressure']?.min || 0) +
-        '收缩压最大值：' +
-        (summary['diastolic_pressure']?.max || 0) +
         '舒张压最小值：' +
-        (summary['systolic_pressure']?.min || 0) +
+        (summary['diastolic_pressure']?.min || 0) +
         '舒张压最大值：' +
+        (summary['diastolic_pressure']?.max || 0) +
+        '收缩压最小值：' +
+        (summary['systolic_pressure']?.min || 0) +
+        '收缩压最大值：' +
         (summary['systolic_pressure']?.max || 0)
       );
     } else if (typeIndex === 5) {
