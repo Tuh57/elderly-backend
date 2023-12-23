@@ -79,7 +79,7 @@ const HealthListColumns = () => {
                   history.push('/health/record?id=' + record.id);
                 }}
               >
-                查看检测
+                查看检测数据
               </a>
             </div>
           </Space>

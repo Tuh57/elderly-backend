@@ -90,7 +90,7 @@ const DeviceListColumns = ({ detailData, setAdminModalOpen, disableUser, enableU
       dataIndex: 'enable',
       width: 200,
       render: (text) => {
-        return text ? '启用' : '禁用';
+        return text ? '已启用' : '已禁用';
       }
     },
     {
@@ -417,8 +417,8 @@ const CubeStoreDownTask = () => {
         <Form.Item label="状态" name="enable">
           <Select
             options={[
-              { label: '开启', value: true },
-              { label: '关闭', value: false }
+              { label: '已启用', value: true },
+              { label: '已禁用', value: false }
             ]}
             allowClear
             placeholder="请选择"

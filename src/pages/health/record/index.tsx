@@ -28,6 +28,8 @@ const CubeStoreDownTask = (props) => {
   const [typeIndex, setTypeIndex] = useState(0);
   const [recordList, setRecordList] = useState([]);
 
+  const [defaultTime, setDefaultTime] = useState('');
+
   const [summary, setSummary] = useState({});
 
   // const [pagination, setPagination] = useState({
@@ -70,6 +72,7 @@ const CubeStoreDownTask = (props) => {
     setTimeType('year');
     const date = moment(new Date());
     setQueryTime([date.startOf('year').unix(), date.endOf('year').unix()]);
+    setDefaultTime(date);
     setTimeout(() => {
       setDateShow(true);
     }, 300);
@@ -137,6 +140,7 @@ const CubeStoreDownTask = (props) => {
     setEchartsData2([[], [], [], [], [], [], []]);
     setQueryTime([]);
     setSummary({});
+    setRecordList([]);
     // setDateShow(true);
     // setEchartsRowData([[], [], [], []]);
   };
@@ -146,7 +150,7 @@ const CubeStoreDownTask = (props) => {
     getData();
     setDateShow(true);
     // setEchartShow(true);
-  }, [timeIndex, queryTime]);
+  }, [timeIndex, queryTime, typeIndex]);
 
   useEffect(() => {
     getRecordListReq();
@@ -227,6 +231,7 @@ const CubeStoreDownTask = (props) => {
   };
 
   const onChange = (date, dateString) => {
+    console.log(date, dateString, '日期---');
     if (date) {
       console.log(date, dateString, '---');
       console.log(date.startOf(timeType).unix(), '---');
@@ -234,7 +239,8 @@ const CubeStoreDownTask = (props) => {
       // const type = timeTypeData[timeIndex];
       setQueryTime([date.startOf(timeType).unix(), date.endOf(timeType).unix()]);
     } else {
-      setQueryTime([]);
+      // setQueryTime([]);
+      resetData();
     }
   };
 
@@ -245,6 +251,7 @@ const CubeStoreDownTask = (props) => {
   const onClickTime = (e) => {
     console.log(e, '++');
     resetData();
+    setDefaultTime('');
     setTimeIndex(Number(e.target.value));
     setTimeType(timeTypeData[Number(e.target.value)]);
     setTimeout(() => {
@@ -397,20 +404,22 @@ const CubeStoreDownTask = (props) => {
     if (typeIndex === 2) {
       return (
         '收缩压最小值：' +
-        (summary['diastolic_pressure']?.min || '') +
+        (summary['diastolic_pressure']?.min || 0) +
         '收缩压最大值：' +
-        (summary['diastolic_pressure']?.max || '') +
+        (summary['diastolic_pressure']?.max || 0) +
         '舒张压最小值：' +
-        (summary['systolic_pressure']?.min || '') +
+        (summary['systolic_pressure']?.min || 0) +
         '舒张压最大值：' +
-        (summary['systolic_pressure']?.max || '')
+        (summary['systolic_pressure']?.max || 0)
       );
+    } else if (typeIndex === 5) {
+      return '最小值：' + (summary['fatigue_level']?.min || 0) + ' 最大值：' + (summary['fatigue_level']?.max || 0);
     } else {
       return (
         '最小值：' +
-        (summary[recordColumns[typeIndex]?.value]?.min || '') +
+        (summary[recordColumns[typeIndex]?.value]?.min || 0) +
         ' 最大值：' +
-        (summary[recordColumns[typeIndex]?.value]?.max || '')
+        (summary[recordColumns[typeIndex]?.value]?.max || 0)
       );
     }
   };
@@ -547,7 +556,7 @@ const CubeStoreDownTask = (props) => {
                       onChange={onChange}
                       onPanelChange={onPanelChange}
                       picker={timeType}
-                      defaultValue={moment(new Date())}
+                      defaultValue={defaultTime}
                     />
                   )}
                 </div>
