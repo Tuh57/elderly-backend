@@ -43,6 +43,15 @@ window.mockRouter = [
             resourceType: 2,
             resourceName: '设备详情',
             title: '设备详情'
+          },
+          {
+            url: '/pc/sos/list',
+            id: '/pc/sos/list',
+            icon: '',
+            buttons: null,
+            resourceType: 2,
+            resourceName: 'SOS设备',
+            title: 'SOS设备'
           }
         ],
         resourceType: 1,
