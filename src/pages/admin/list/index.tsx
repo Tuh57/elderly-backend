@@ -311,7 +311,7 @@ const AdminModal = (props) => {
         </Form.Item>
 
         <Form.Item label="角色" name="role_id" rules={[{ required: true, message: '请选择角色' }]}>
-          <Select options={valueToLabel(roles, 'title', 'id')} disabled={true} />
+          <Select options={valueToLabel(roles, 'title', 'id')} disabled={false} />
         </Form.Item>
       </Form>
     </Modal>
@@ -405,7 +405,7 @@ const CubeStoreDownTask = () => {
         <Form.Item label="手机号码" name="phone">
           <Input placeholder="请输入手机号码" allowClear />
         </Form.Item> */}
-        {/* 
+        {/*
         <Form.Item label="邮箱" name="email">
           <Input placeholder="请输入邮箱" allowClear />
         </Form.Item> */}
